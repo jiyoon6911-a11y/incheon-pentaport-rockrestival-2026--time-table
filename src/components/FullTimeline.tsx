@@ -55,6 +55,38 @@ export const FullTimeline: React.FC<FullTimelineProps> = ({
     return currentTime >= start && currentTime < end;
   };
 
+  // Helper to format/get the clean display name according to rules:
+  // Show ONLY Korean names for Korean teams (remove English/romanization).
+  // Keep Hanja, foreign, or originally English teams as is.
+  const getArtistDisplayName = (artistName: string) => {
+    // Foreign / original English / Hanja teams to exclude (keep as is)
+    const excludeList = [
+      "LITTLE SIMZ",
+      "ASIAN KUNG-FU GENERATION",
+      "當代電影大師 (Modern Cinema Master)",
+      "Tempalay (템플레이)",
+      "TheyNeverChange"
+    ];
+    
+    if (excludeList.includes(artistName)) {
+      if (artistName === "當代電影大師 (Modern Cinema Master)") {
+        return { mainName: "當代電影大師", subName: "Modern Cinema Master" };
+      }
+      if (artistName === "Tempalay (템플레이)") {
+        return { mainName: "Tempalay", subName: "템플레이" };
+      }
+      return { mainName: artistName };
+    }
+
+    if (artistName.includes(" (") && artistName.endsWith(")")) {
+      const startIdx = artistName.indexOf(" (");
+      const koreanPart = artistName.substring(startIdx + 2, artistName.length - 1);
+      return { mainName: koreanPart };
+    }
+
+    return { mainName: artistName };
+  };
+
   return (
     <div className="space-y-4">
       {/* Visual Header / Sub-Banner */}
@@ -204,14 +236,21 @@ export const FullTimeline: React.FC<FullTimelineProps> = ({
                           </div>
 
                           <div className="text-center w-full mt-1.5">
-                            <h4 className="text-[10px] sm:text-xs font-black text-slate-950 tracking-tight leading-none truncate max-w-[90%] mx-auto">
-                              {artist.name.includes(" (") ? artist.name.split(" (")[0] : artist.name}
-                            </h4>
-                            {artist.name.includes(" (") && (
-                              <p className="text-[7.5px] sm:text-[9px] font-bold text-slate-800 leading-none mt-0.5 truncate max-w-[90%] mx-auto">
-                                ({artist.name.split(" (")[1]}
-                              </p>
-                            )}
+                            {(() => {
+                              const { mainName, subName } = getArtistDisplayName(artist.name);
+                              return (
+                                <>
+                                  <h4 className="text-[10px] sm:text-xs font-black text-slate-950 tracking-tight leading-none truncate max-w-[90%] mx-auto">
+                                    {mainName}
+                                  </h4>
+                                  {subName && (
+                                    <p className="text-[7.5px] sm:text-[9px] font-bold text-slate-800 leading-none mt-0.5 truncate max-w-[90%] mx-auto">
+                                      ({subName})
+                                    </p>
+                                  )}
+                                </>
+                              );
+                            })()}
                             <p className="text-[7px] sm:text-[8px] font-mono font-black text-slate-700 leading-none mt-1">
                               {getDurationText(artist.startTime, artist.endTime)}
                             </p>
@@ -267,14 +306,21 @@ export const FullTimeline: React.FC<FullTimelineProps> = ({
                           </div>
 
                           <div className="text-center w-full mt-1.5">
-                            <h4 className="text-[10px] sm:text-xs font-black text-slate-950 tracking-tight leading-none truncate max-w-[90%] mx-auto">
-                              {artist.name.includes(" (") ? artist.name.split(" (")[0] : artist.name}
-                            </h4>
-                            {artist.name.includes(" (") && (
-                              <p className="text-[7.5px] sm:text-[9px] font-bold text-slate-800 leading-none mt-0.5 truncate max-w-[90%] mx-auto">
-                                ({artist.name.split(" (")[1]}
-                              </p>
-                            )}
+                            {(() => {
+                              const { mainName, subName } = getArtistDisplayName(artist.name);
+                              return (
+                                <>
+                                  <h4 className="text-[10px] sm:text-xs font-black text-slate-950 tracking-tight leading-none truncate max-w-[90%] mx-auto">
+                                    {mainName}
+                                  </h4>
+                                  {subName && (
+                                    <p className="text-[7.5px] sm:text-[9px] font-bold text-slate-800 leading-none mt-0.5 truncate max-w-[90%] mx-auto">
+                                      ({subName})
+                                    </p>
+                                  )}
+                                </>
+                              );
+                            })()}
                             <p className="text-[7px] sm:text-[8px] font-mono font-black text-slate-700 leading-none mt-1">
                               {getDurationText(artist.startTime, artist.endTime)}
                             </p>
@@ -318,14 +364,21 @@ export const FullTimeline: React.FC<FullTimelineProps> = ({
                           </div>
 
                           <div className="text-center w-full mt-1.5">
-                            <h4 className="text-[10px] sm:text-xs font-black text-slate-950 tracking-tight leading-none truncate max-w-[90%] mx-auto">
-                              {artist.name.includes(" (") ? artist.name.split(" (")[0] : artist.name}
-                            </h4>
-                            {artist.name.includes(" (") && (
-                              <p className="text-[7.5px] sm:text-[9px] font-bold text-slate-800 leading-none mt-0.5 truncate max-w-[90%] mx-auto">
-                                ({artist.name.split(" (")[1]}
-                              </p>
-                            )}
+                            {(() => {
+                              const { mainName, subName } = getArtistDisplayName(artist.name);
+                              return (
+                                <>
+                                  <h4 className="text-[10px] sm:text-xs font-black text-slate-950 tracking-tight leading-none truncate max-w-[90%] mx-auto">
+                                    {mainName}
+                                  </h4>
+                                  {subName && (
+                                    <p className="text-[7.5px] sm:text-[9px] font-bold text-slate-800 leading-none mt-0.5 truncate max-w-[90%] mx-auto">
+                                      ({subName})
+                                    </p>
+                                  )}
+                                </>
+                              );
+                            })()}
                             <p className="text-[7px] sm:text-[8px] font-mono font-black text-slate-700 leading-none mt-1">
                               {getDurationText(artist.startTime, artist.endTime)}
                             </p>
