@@ -19,24 +19,8 @@ export const FullTimeline: React.FC<FullTimelineProps> = ({
   favorites,
   onToggleFavorite,
 }) => {
-  const [selectedArtist, setSelectedArtist] = useState<Artist | null>(null);
-
   // Filter artists for current day
   const dayArtists = artists.filter((a) => a.dayId === dayId);
-
-  // Auto-select first artist on load or when dayId changes
-  useEffect(() => {
-    const dayArtistsSorted = [...dayArtists].sort((a, b) => {
-      const aMins = a.startTime.split(":").map(Number);
-      const bMins = b.startTime.split(":").map(Number);
-      return (aMins[0] * 60 + aMins[1]) - (bMins[0] * 60 + bMins[1]);
-    });
-    if (dayArtistsSorted.length > 0) {
-      setSelectedArtist(dayArtistsSorted[0]);
-    } else {
-      setSelectedArtist(null);
-    }
-  }, [dayId]);
 
   // Height of 1 hour in pixels on the timeline grid
   const HOUR_HEIGHT = 85;
@@ -199,19 +183,13 @@ export const FullTimeline: React.FC<FullTimelineProps> = ({
                     .filter((a) => a.stageId === "kb-starshop")
                     .map((artist) => {
                       const isFav = favorites.some((f) => f.artistId === artist.id);
-                      const isSelected = selectedArtist?.id === artist.id;
                       const isNow = isCurrentlyPlaying(artist.startTime, artist.endTime);
                       const pos = getPositionStyles(artist.startTime, artist.endTime);
 
                       return (
                         <div
                           key={artist.id}
-                          onClick={() => setSelectedArtist(artist)}
-                          className={`absolute left-[4px] right-[4px] rounded-lg p-1.5 md:p-2.5 transition-all cursor-pointer flex flex-col justify-center items-center shadow-sm select-none border border-slate-900/10 group ${
-                            isSelected 
-                              ? "bg-[#ffdd44] border-slate-950 scale-[1.01] z-20 ring-2 ring-slate-950" 
-                              : "bg-[#ffe855] hover:bg-[#ffdd33]"
-                          }`}
+                          className="absolute left-[4px] right-[4px] rounded-lg p-1.5 md:p-2.5 transition-all flex flex-col justify-center items-center shadow-sm select-none border border-slate-900/10 group bg-[#ffe855] hover:bg-[#ffdd33]"
                           style={pos}
                         >
                           <div className="absolute top-1.5 right-1.5 opacity-80 hover:opacity-100 z-10">
@@ -268,19 +246,13 @@ export const FullTimeline: React.FC<FullTimelineProps> = ({
                     .filter((a) => a.stageId === "incheon")
                     .map((artist) => {
                       const isFav = favorites.some((f) => f.artistId === artist.id);
-                      const isSelected = selectedArtist?.id === artist.id;
                       const isNow = isCurrentlyPlaying(artist.startTime, artist.endTime);
                       const pos = getPositionStyles(artist.startTime, artist.endTime);
 
                       return (
                         <div
                           key={artist.id}
-                          onClick={() => setSelectedArtist(artist)}
-                          className={`absolute left-[4px] right-[4px] rounded-lg p-1.5 md:p-2.5 transition-all cursor-pointer flex flex-col justify-center items-center shadow-sm select-none border border-slate-900/10 group ${
-                            isSelected 
-                              ? "bg-[#6be0ff] border-slate-950 scale-[1.01] z-20 ring-2 ring-slate-950" 
-                              : "bg-[#9ceaff] hover:bg-[#7be2ff]"
-                          }`}
+                          className="absolute left-[4px] right-[4px] rounded-lg p-1.5 md:p-2.5 transition-all flex flex-col justify-center items-center shadow-sm select-none border border-slate-900/10 group bg-[#9ceaff] hover:bg-[#7be2ff]"
                           style={pos}
                         >
                           <div className="absolute top-1.5 right-1.5 opacity-80 hover:opacity-100 z-10">
@@ -325,19 +297,13 @@ export const FullTimeline: React.FC<FullTimelineProps> = ({
                     .filter((a) => a.stageId === "incheon-airport")
                     .map((artist) => {
                       const isFav = favorites.some((f) => f.artistId === artist.id);
-                      const isSelected = selectedArtist?.id === artist.id;
                       const isNow = isCurrentlyPlaying(artist.startTime, artist.endTime);
                       const pos = getPositionStyles(artist.startTime, artist.endTime);
 
                       return (
                         <div
                           key={artist.id}
-                          onClick={() => setSelectedArtist(artist)}
-                          className={`absolute left-[4px] right-[4px] rounded-lg p-1.5 md:p-2.5 transition-all cursor-pointer flex flex-col justify-center items-center shadow-sm select-none border border-slate-900/10 group ${
-                            isSelected 
-                              ? "bg-[#94cbf7] border-slate-950 scale-[1.01] z-20 ring-2 ring-slate-950" 
-                              : "bg-[#b7ddfc] hover:bg-[#a2d1f7]"
-                          }`}
+                          className="absolute left-[4px] right-[4px] rounded-lg p-1.5 md:p-2.5 transition-all flex flex-col justify-center items-center shadow-sm select-none border border-slate-900/10 group bg-[#b7ddfc] hover:bg-[#a2d1f7]"
                           style={pos}
                         >
                           <div className="absolute top-1.5 right-1.5 opacity-80 hover:opacity-100 z-10">
@@ -383,54 +349,6 @@ export const FullTimeline: React.FC<FullTimelineProps> = ({
           </div>
         </div>
       </div>
-
-      {/* SELECTED ARTIST DETAILS BLOCK (Slide-up Look) */}
-      {selectedArtist ? (
-        <div className="bg-white rounded-2xl border border-slate-200 p-4 shadow-sm space-y-3.5">
-          <div className="flex flex-col gap-3">
-            <div className="space-y-1">
-              <span className="text-[9.5px] font-black tracking-wider uppercase text-slate-500 bg-slate-100 px-2 py-0.5 rounded border border-slate-200/55 inline-block">
-                {stages.find((s) => s.id === selectedArtist.stageId)?.name || "Stage"} • {selectedArtist.genre}
-              </span>
-              <h4 className="text-sm font-black text-slate-900 tracking-tight flex items-center gap-1.5">
-                {selectedArtist.name}
-              </h4>
-              <p className="text-[11px] text-slate-500 font-semibold">
-                공연 시간: <strong className="text-slate-800 font-bold">{selectedArtist.startTime} ~ {selectedArtist.endTime}</strong>
-              </p>
-            </div>
-            
-            <button
-              onClick={() => onToggleFavorite(selectedArtist.id)}
-              className={`flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl text-xs font-black border transition-all shadow-sm w-full ${
-                favorites.some((f) => f.artistId === selectedArtist.id)
-                  ? "bg-rose-50 border-rose-200 text-[#e61a55]"
-                  : "bg-slate-900 border-slate-900 hover:bg-slate-800 text-white"
-              }`}
-            >
-              <Heart className={`h-3.5 w-3.5 ${favorites.some((f) => f.artistId === selectedArtist.id) ? "fill-[#e61a55] text-[#e61a55]" : ""}`} />
-              <span>{favorites.some((f) => f.artistId === selectedArtist.id) ? "스케줄 찜 해제" : "내 스케줄에 추가"}</span>
-            </button>
-          </div>
-
-          <div className="h-px bg-slate-200/60" />
-
-          <p className="text-xs text-slate-600 font-semibold leading-relaxed">
-            {selectedArtist.description}
-          </p>
-          
-          <div className="flex gap-2.5 p-3 bg-slate-50 rounded-2xl border border-slate-200/60 text-[11px] text-slate-500 leading-relaxed font-semibold">
-            <Info className="h-4.5 w-4.5 text-[#e61a55] shrink-0 mt-0.5" />
-            <p>
-              찜한 공연은 시작 15분 전에 <strong>인앱 토스트 및 스마트 브라우저 푸시 알림</strong>을 통해 현장 알림 리마인더를 발송해 드립니다!
-            </p>
-          </div>
-        </div>
-      ) : (
-        <div className="text-center py-8 bg-white rounded-3xl border border-slate-200 border-dashed">
-          <p className="text-xs text-slate-400 font-bold">포스터 타임라인에서 공연 블록을 터치하시면 상세 정보가 아래에 표시됩니다.</p>
-        </div>
-      )}
     </div>
   );
 };
