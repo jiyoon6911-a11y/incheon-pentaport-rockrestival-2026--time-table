@@ -139,159 +139,174 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#f3f5fa] text-slate-800 font-sans selection:bg-[#e61a55] selection:text-white pb-12 relative overflow-x-hidden">
-      {/* PLAYFUL BACKGROUND DECORATION TO MATCH THE POSTER */}
-      <div className="absolute top-0 left-0 right-0 h-[350px] bg-gradient-to-b from-[#e8ecf8] to-transparent pointer-events-none -z-10" />
+    <div className="min-h-screen bg-slate-950 sm:bg-gradient-to-tr sm:from-slate-900 sm:to-indigo-950 flex items-center justify-center p-0 sm:py-6 md:py-8 select-none">
       
-      {/* TOP DECORATIVE STAGE COLOR BAR */}
-      <div className="h-1.5 w-full grid grid-cols-3 sticky top-0 z-50">
-        <div className="bg-[#f5a623]" title="KB KOOKMIN CARD STAGE" />
-        <div className="bg-[#39b54a]" title="MONSTER ENERGY STAGE" />
-        <div className="bg-[#e61a55]" title="STANLEY 1913 STAGE" />
-      </div>
+      {/* PHONE WRAPPER FRAME */}
+      <div className="w-full max-w-[450px] h-screen sm:h-[840px] bg-[#f3f5fa] sm:rounded-[36px] sm:shadow-[0_25px_60px_-15px_rgba(0,0,0,0.8)] sm:border-[8px] sm:border-slate-900 relative flex flex-col overflow-hidden text-slate-800 font-sans selection:bg-[#e61a55] selection:text-white">
+        
+        {/* PHONE STATUS BAR */}
+        <div className="hidden sm:flex justify-between items-center px-6 pt-2 pb-1 bg-white text-[10px] font-black text-slate-500 select-none z-50 shrink-0">
+          <span className="font-mono">{activeTime}</span>
+          <span className="text-[9px] tracking-tight text-slate-400">PENTAPORT 5G</span>
+          <div className="flex items-center gap-1">
+            <span>📶</span>
+            <span>🔋 98%</span>
+          </div>
+        </div>
 
-      {/* IN-APP TOAST NOTIFICATION BANNER */}
-      <AnimatePresence>
-        {toastAlert && (
-          <motion.div
-            initial={{ opacity: 0, y: -50, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -20, scale: 0.95 }}
-            className="fixed top-10 right-6 z-50 max-w-sm w-full bg-white border-2 border-[#e61a55] shadow-xl p-4 rounded-2xl"
-          >
-            <div className="flex items-start gap-3">
-              <div className="p-2 bg-[#e61a55]/10 text-[#e61a55] rounded-xl border border-[#e61a55]/20 animate-bounce">
-                <Bell className="h-5 w-5" />
-              </div>
-              <div className="flex-1 space-y-1">
-                <h4 className="text-xs font-bold text-[#e61a55] uppercase tracking-widest">
-                  공연 알람 작동!
-                </h4>
-                <p className="text-sm font-extrabold text-slate-900 leading-tight">
-                  {toastAlert.artistName}
-                </p>
-                <p className="text-xs text-slate-600">
-                  잠시 후 <strong className="text-rose-600">{toastAlert.minutesLeft}분 뒤</strong>에 공연이 시작됩니다! ({toastAlert.startTime} 예정)
-                </p>
-              </div>
-              <button
-                onClick={() => setToastAlert(null)}
-                className="text-slate-400 hover:text-slate-600 p-1 rounded-full hover:bg-slate-100 transition-colors"
+        {/* TOP DECORATIVE STAGE COLOR BAR */}
+        <div className="h-1 w-full grid grid-cols-3 sticky top-0 z-50 shrink-0">
+          <div className="bg-[#f5a623]" title="KB KOOKMIN CARD STAGE" />
+          <div className="bg-[#39b54a]" title="MONSTER ENERGY STAGE" />
+          <div className="bg-[#e61a55]" title="STANLEY 1913 STAGE" />
+        </div>
+
+        {/* INNER SCROLLABLE CONTENT BODY */}
+        <div className="flex-1 overflow-y-auto overflow-x-hidden relative flex flex-col pb-6">
+          {/* PLAYFUL BACKGROUND DECORATION TO MATCH THE POSTER */}
+          <div className="absolute top-0 left-0 right-0 h-[300px] bg-gradient-to-b from-[#e8ecf8] to-transparent pointer-events-none -z-10" />
+
+          {/* IN-APP TOAST NOTIFICATION BANNER */}
+          <AnimatePresence>
+            {toastAlert && (
+              <motion.div
+                initial={{ opacity: 0, y: -50, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -20, scale: 0.95 }}
+                className="absolute top-4 left-4 right-4 z-50 bg-white border-2 border-[#e61a55] shadow-xl p-4 rounded-2xl"
               >
-                <X className="h-4 w-4" />
+                <div className="flex items-start gap-3">
+                  <div className="p-2 bg-[#e61a55]/10 text-[#e61a55] rounded-xl border border-[#e61a55]/20 animate-bounce shrink-0">
+                    <Bell className="h-5 w-5" />
+                  </div>
+                  <div className="flex-1 space-y-1">
+                    <h4 className="text-xs font-bold text-[#e61a55] uppercase tracking-widest">
+                      공연 알람 작동!
+                    </h4>
+                    <p className="text-sm font-extrabold text-slate-900 leading-tight">
+                      {toastAlert.artistName}
+                    </p>
+                    <p className="text-xs text-slate-600">
+                      잠시 후 <strong className="text-rose-600">{toastAlert.minutesLeft}분 뒤</strong>에 공연이 시작됩니다! ({toastAlert.startTime} 예정)
+                    </p>
+                  </div>
+                  <button
+                    onClick={() => setToastAlert(null)}
+                    className="text-slate-400 hover:text-slate-600 p-1 rounded-full hover:bg-slate-100 transition-colors shrink-0"
+                  >
+                    <X className="h-4 w-4" />
+                  </button>
+                </div>
+                <div className="mt-3 pt-2.5 border-t border-slate-100 flex justify-end">
+                  <span className="text-[10px] text-slate-400 font-mono">가장 가까운 무대로 이동해주세요</span>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          {/* HEADER BAR */}
+          <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-sm shrink-0">
+            <div className="px-4 py-3 flex items-center justify-between gap-2">
+              <div className="flex items-center gap-2">
+                <div className="h-8 w-8 rounded-lg bg-[#e61a55] flex items-center justify-center shadow-md shadow-rose-500/20 text-white font-extrabold text-sm shrink-0">
+                  ★
+                </div>
+                <div>
+                  <div className="flex items-center gap-1">
+                    <h1 className="text-xs font-black tracking-tighter text-slate-900 uppercase">
+                      PENTAPORT
+                    </h1>
+                    <span className="text-[8px] bg-slate-100 text-slate-600 border border-slate-200 px-1 py-0.2 rounded font-bold font-mono">
+                      2026
+                    </span>
+                  </div>
+                  <p className="text-[9px] font-bold text-indigo-600 leading-none">
+                    Live Companion
+                  </p>
+                </div>
+              </div>
+
+              {/* DAY SWITCHER HEAD TABS */}
+              <div className="flex items-center bg-slate-100 p-0.5 rounded-lg border border-slate-200/60 shadow-inner scale-95 origin-right shrink-0">
+                {FESTIVAL_DAYS.map((day) => {
+                  const isSelected = activeDayId === day.id;
+                  return (
+                    <button
+                      key={day.id}
+                      onClick={() => {
+                        setActiveDayId(day.id);
+                      }}
+                      className={`px-2.5 py-1 rounded-md text-[10px] font-black tracking-tight transition-all ${
+                        isSelected
+                          ? "bg-white text-slate-900 border border-slate-200/50 shadow-sm"
+                          : "text-slate-500 hover:text-slate-800"
+                      }`}
+                    >
+                      {day.name}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          </header>
+
+          {/* NEW HEADER TAB NAVIGATION */}
+          <div className="px-4 pt-3 shrink-0">
+            <div className="bg-white/80 backdrop-blur-md rounded-xl border border-slate-200/85 p-1 shadow-sm flex items-center justify-center gap-1">
+              <button
+                onClick={() => setActiveTab("live")}
+                className={`flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg transition-all text-xs font-black tracking-tight ${
+                  activeTab === "live"
+                    ? "bg-[#e61a55] text-white shadow-sm"
+                    : "text-slate-600 hover:text-slate-900 hover:bg-slate-50"
+                }`}
+              >
+                <Radio className={`h-3.5 w-3.5 ${activeTab === "live" ? "animate-pulse" : ""}`} />
+                <span>실시간 현황</span>
+              </button>
+
+              <button
+                onClick={() => setActiveTab("timetable")}
+                className={`flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg transition-all text-xs font-black tracking-tight ${
+                  activeTab === "timetable"
+                    ? "bg-[#39b54a] text-white shadow-sm"
+                    : "text-slate-600 hover:text-slate-900 hover:bg-slate-50"
+                }`}
+              >
+                <Calendar className="h-3.5 w-3.5" />
+                <span>타임테이블</span>
               </button>
             </div>
-            <div className="mt-3 pt-2.5 border-t border-slate-100 flex justify-end">
-              <span className="text-[10px] text-slate-400 font-mono">가장 가까운 무대로 이동해주세요</span>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* HEADER BAR */}
-      <header className="sticky top-1.5 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-sm">
-        <div className="max-w-5xl mx-auto px-4 py-3.5 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-3">
-            <div className="h-10 w-10 rounded-xl bg-[#e61a55] flex items-center justify-center shadow-md shadow-rose-500/20 text-white font-extrabold text-lg">
-              ★
-            </div>
-            <div>
-              <div className="flex items-center gap-1.5">
-                <h1 className="text-base font-black tracking-tighter text-slate-900 uppercase">
-                  INCHEON PENTAPORT
-                </h1>
-                <span className="text-[9px] bg-slate-100 text-slate-600 border border-slate-200 px-1.5 py-0.5 rounded-md font-bold font-mono">
-                  2026
-                </span>
-              </div>
-              <span className="text-[10px] font-bold tracking-wide text-indigo-600">
-                with KB국민카드 • Live Companion
-              </span>
-            </div>
           </div>
 
-          {/* DAY SWITCHER HEAD TABS */}
-          <div className="flex items-center bg-slate-100 p-1 rounded-xl border border-slate-200/60 shadow-inner">
-            {FESTIVAL_DAYS.map((day) => {
-              const isSelected = activeDayId === day.id;
-              return (
-                <button
-                  key={day.id}
-                  onClick={() => {
-                    setActiveDayId(day.id);
-                  }}
-                  className={`px-4 py-1.5 rounded-lg text-xs font-black tracking-tight transition-all ${
-                    isSelected
-                      ? "bg-white text-slate-900 border border-slate-200/50 shadow-sm"
-                      : "text-slate-500 hover:text-slate-800"
-                  }`}
-                >
-                  <span className="inline-block h-1.5 w-1.5 rounded-full bg-[#e61a55] mr-1.5" />
-                  {day.name}
-                </button>
-              );
-            })}
-          </div>
-        </div>
-      </header>
+          {/* MAIN CONTAINER */}
+          <main className="px-4 py-4 space-y-4 flex-1">
+            <section className="min-h-[300px]">
+              {activeTab === "live" && (
+                <NowPlaying
+                  artists={ARTISTS}
+                  stages={STAGES}
+                  dayId={activeDayForCalculation}
+                  currentTime={activeTime}
+                  favorites={favorites}
+                  onToggleFavorite={handleToggleFavorite}
+                />
+              )}
 
-      {/* NEW HEADER TAB NAVIGATION */}
-      <div className="max-w-5xl mx-auto px-4 pt-4">
-        <div className="bg-white/80 backdrop-blur-md rounded-2xl border border-slate-200/85 p-1.5 shadow-sm flex flex-wrap items-center justify-center gap-1.5">
-          <button
-            onClick={() => setActiveTab("live")}
-            className={`flex items-center gap-2 px-4 py-2.5 rounded-xl transition-all text-xs font-black tracking-tight ${
-              activeTab === "live"
-                ? "bg-[#e61a55] text-white shadow-sm"
-                : "text-slate-600 hover:text-slate-900 hover:bg-slate-50"
-            }`}
-          >
-            <Radio className={`h-4 w-4 ${activeTab === "live" ? "animate-pulse" : ""}`} />
-            <span>실시간 현황</span>
-          </button>
-
-          <button
-            onClick={() => setActiveTab("timetable")}
-            className={`flex items-center gap-2 px-4 py-2.5 rounded-xl transition-all text-xs font-black tracking-tight ${
-              activeTab === "timetable"
-                ? "bg-[#39b54a] text-white shadow-sm"
-                : "text-slate-600 hover:text-slate-900 hover:bg-slate-50"
-            }`}
-          >
-            <Calendar className="h-4 w-4" />
-            <span>타임테이블</span>
-          </button>
+              {activeTab === "timetable" && (
+                <FullTimeline
+                  artists={ARTISTS}
+                  stages={STAGES}
+                  dayId={activeDayForCalculation}
+                  currentTime={activeTime}
+                  favorites={favorites}
+                  onToggleFavorite={handleToggleFavorite}
+                />
+              )}
+            </section>
+          </main>
         </div>
       </div>
-
-      {/* MAIN CONTAINER */}
-      <main className="max-w-5xl mx-auto px-4 py-6 space-y-6">
-        {/* COMPONENT DESK VIEWS */}
-        <section className="min-h-[400px]">
-          {activeTab === "live" && (
-            <NowPlaying
-              artists={ARTISTS}
-              stages={STAGES}
-              dayId={activeDayForCalculation}
-              currentTime={activeTime}
-              favorites={favorites}
-              onToggleFavorite={handleToggleFavorite}
-            />
-          )}
-
-          {activeTab === "timetable" && (
-            <FullTimeline
-              artists={ARTISTS}
-              stages={STAGES}
-              dayId={activeDayForCalculation}
-              currentTime={activeTime}
-              favorites={favorites}
-              onToggleFavorite={handleToggleFavorite}
-            />
-          )}
-        </section>
-      </main>
-
     </div>
   );
 }

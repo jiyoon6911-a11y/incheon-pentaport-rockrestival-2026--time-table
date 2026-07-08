@@ -65,7 +65,7 @@ export const NowPlaying: React.FC<NowPlayingProps> = ({
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 gap-4">
         {stages.map((stage) => {
           const nowArtist = getCurrentlyPlayingArtist(artists, stage.id, dayId, currentTime);
           const nextArtist = getUpcomingArtist(artists, stage.id, dayId, currentTime);
