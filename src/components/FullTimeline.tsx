@@ -22,8 +22,8 @@ export const FullTimeline: React.FC<FullTimelineProps> = ({
   // Filter artists for current day
   const dayArtists = artists.filter((a) => a.dayId === dayId);
 
-  // Height of 1 hour in pixels on the timeline grid
-  const HOUR_HEIGHT = 85;
+  // Height of 1 hour in pixels on the timeline grid - significantly compressed so it fits on a single mobile screen at a glance!
+  const HOUR_HEIGHT = 46;
   const startHour = 11;
   const endHour = 23;
   const totalHours = endHour - startHour; // 12 hours
@@ -33,7 +33,7 @@ export const FullTimeline: React.FC<FullTimelineProps> = ({
     const [sh, sm] = start.split(":").map(Number);
     const [eh, em] = end.split(":").map(Number);
     const diff = (eh * 60 + em) - (sh * 60 + sm);
-    return `${start}-${end}(${diff}min)`;
+    return `${start}-${end}(${diff}m)`;
   };
 
   // Helper to calculate absolute positioning top and height
@@ -72,110 +72,109 @@ export const FullTimeline: React.FC<FullTimelineProps> = ({
 
       {/* PORTRAIT TIME TABLE (Exact Replica Style) */}
       <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden select-none">
-        {/* Scroll Container - Optimized for portrait glance & horizontal swipe on narrow phones */}
-        <div className="overflow-x-auto scrollbar-thin scrollbar-thumb-slate-300">
-          <div className="min-w-[480px] flex flex-col">
+        {/* Full width container - no horizontal scroll or min-width drag needed */}
+        <div className="w-full flex flex-col">
+          
+          {/* COLUMN HEADERS */}
+          <div className="flex items-stretch border-b border-slate-200">
+            {/* Hour Column Gutter */}
+            <div className="w-[35px] flex-shrink-0 bg-slate-50 border-r border-[#4f81bd]/20 flex items-center justify-center font-mono text-[8px] font-black text-slate-400">
+              TIME
+            </div>
+
+            {/* Stage 1: KB STARSHOP */}
+            <div className="flex-1 bg-[#ffcc00] text-slate-950 font-black text-center py-1 px-0.5 border-r border-white/40 flex flex-col justify-center items-center h-11">
+              <span className="text-[5.5px] tracking-tighter leading-none font-bold uppercase opacity-80">
+                KB KOOKMIN
+              </span>
+              <span className="text-[8.5px] tracking-tighter leading-tight uppercase font-black mt-0.5">
+                STARSHOP
+              </span>
+            </div>
+
+            {/* Stage 2: INCHEON */}
+            <div className="flex-1 bg-[#00b0f0] text-white font-black text-center py-1 px-0.5 border-r border-white/40 flex flex-col justify-center items-center h-11">
+              <span className="text-[5.5px] tracking-tighter leading-none font-bold uppercase opacity-80">
+                PENTAPORT
+              </span>
+              <span className="text-[8.5px] tracking-tighter leading-tight uppercase font-black mt-0.5">
+                INCHEON
+              </span>
+            </div>
+
+            {/* Stage 3: AIRPORT */}
+            <div className="flex-1 bg-[#4f81bd] text-white font-black text-center py-1 px-0.5 flex flex-col justify-center items-center h-11">
+              <span className="text-[5.5px] tracking-tighter leading-none font-bold uppercase opacity-80">
+                AIRPORT
+              </span>
+              <span className="text-[8.5px] tracking-tighter leading-tight uppercase font-black mt-0.5">
+                STAGE
+              </span>
+            </div>
+          </div>
+
+          {/* ADMISSION BAR (입장 오픈 10:00) */}
+          <div className="flex items-stretch border-b border-slate-200">
+            <div className="w-[35px] flex-shrink-0 bg-slate-50 border-r border-[#4f81bd]/20" />
+            <div className="flex-1 bg-[#c11041] text-white py-0.5 text-center font-extrabold text-[8.5px] tracking-wide uppercase">
+              입장 오픈 10:00 (Gate Open)
+            </div>
+          </div>
+
+          {/* GRID CONTENT AREA (Ambient Poster Gradient Swirl Style) */}
+          <div 
+            className="flex w-full relative" 
+            style={{ 
+              height: `${totalHours * HOUR_HEIGHT}px`,
+              background: "linear-gradient(180deg, #d8e8f8 0%, #f6fafd 50%, #d8e8f8 100%)"
+            }}
+          >
             
-            {/* COLUMN HEADERS */}
-            <div className="flex items-stretch border-b border-slate-200">
-              {/* Hour Column Gutter */}
-              <div className="w-[45px] flex-shrink-0 bg-slate-50 border-r border-[#4f81bd]/20 flex items-center justify-center font-mono text-[9px] font-black text-slate-400">
-                TIME
-              </div>
+            {/* BACKDROP HORIZONTAL LINES & HOUR LABELS */}
+            <div className="absolute inset-0 pointer-events-none z-0">
+              {Array.from({ length: totalHours }).map((_, i) => {
+                const hourVal = startHour + i;
+                return (
+                  <React.Fragment key={hourVal}>
+                    {/* Exact Hour Solid Line */}
+                    <div 
+                      className="absolute left-0 right-0 border-t border-[#4f81bd]/25"
+                      style={{ top: `${i * HOUR_HEIGHT}px` }}
+                    />
+                    
+                    {/* Hour Number Text (Left column gutter) */}
+                    <div 
+                      className="absolute left-0 w-[35px] text-right pr-1 font-black text-slate-900 select-none text-[11px] leading-none"
+                      style={{ top: `${i * HOUR_HEIGHT + 4}px` }}
+                    >
+                      {hourVal}
+                    </div>
 
-              {/* Stage 1: KB STARSHOP */}
-              <div className="flex-1 bg-[#ffcc00] text-slate-950 font-black text-center py-2 px-0.5 border-r border-white/40 flex flex-col justify-center items-center h-12">
-                <span className="text-[7px] tracking-wider leading-none font-bold uppercase opacity-80">
-                  KB KOOKMIN CARD
-                </span>
-                <span className="text-[10px] tracking-tight leading-tight uppercase font-black mt-0.5">
-                  STARSHOP STAGE
-                </span>
-              </div>
+                    {/* 30-min Dashed Line */}
+                    <div 
+                      className="absolute left-[35px] right-0 border-t border-dashed border-[#4f81bd]/15"
+                      style={{ top: `${i * HOUR_HEIGHT + HOUR_HEIGHT / 2}px` }}
+                    />
 
-              {/* Stage 2: INCHEON */}
-              <div className="flex-1 bg-[#00b0f0] text-white font-black text-center py-2 px-0.5 border-r border-white/40 flex flex-col justify-center items-center h-12">
-                <span className="text-[7px] tracking-wider leading-none font-bold uppercase opacity-80">
-                  PENTAPORT
-                </span>
-                <span className="text-[10px] tracking-tight leading-tight uppercase font-black mt-0.5">
-                  INCHEON STAGE
-                </span>
-              </div>
-
-              {/* Stage 3: AIRPORT */}
-              <div className="flex-1 bg-[#4f81bd] text-white font-black text-center py-2 px-0.5 flex flex-col justify-center items-center h-12">
-                <span className="text-[7px] tracking-wider leading-none font-bold uppercase opacity-80">
-                  INCHEON AIRPORT
-                </span>
-                <span className="text-[10px] tracking-tight leading-tight uppercase font-black mt-0.5">
-                  STAGE
-                </span>
-              </div>
+                    {/* "30" Minute Text */}
+                    <div 
+                      className="absolute left-0 w-[35px] text-right pr-1 font-extrabold text-[#9ebcd8] select-none text-[8px] leading-none"
+                      style={{ top: `${i * HOUR_HEIGHT + HOUR_HEIGHT / 2 + 3}px` }}
+                    >
+                      30
+                    </div>
+                  </React.Fragment>
+                );
+              })}
+              {/* Final bottom hour solid line */}
+              <div 
+                className="absolute left-0 right-0 border-t border-[#4f81bd]/25"
+                style={{ top: `${totalHours * HOUR_HEIGHT}px` }}
+              />
             </div>
 
-            {/* ADMISSION BAR (입장 오픈 10:00) */}
-            <div className="flex items-stretch border-b border-slate-200">
-              <div className="w-[45px] flex-shrink-0 bg-slate-50 border-r border-[#4f81bd]/20" />
-              <div className="flex-1 bg-[#c11041] text-white py-1 text-center font-extrabold text-[9.5px] tracking-wider uppercase">
-                입장 오픈 10:00 (Gate Open)
-              </div>
-            </div>
-
-            {/* GRID CONTENT AREA (Ambient Poster Gradient Swirl Style) */}
-            <div 
-              className="flex w-full relative" 
-              style={{ 
-                height: `${totalHours * HOUR_HEIGHT}px`,
-                background: "linear-gradient(180deg, #d8e8f8 0%, #f6fafd 50%, #d8e8f8 100%)"
-              }}
-            >
-              
-              {/* BACKDROP HORIZONTAL LINES & HOUR LABELS */}
-              <div className="absolute inset-0 pointer-events-none z-0">
-                {Array.from({ length: totalHours }).map((_, i) => {
-                  const hourVal = startHour + i;
-                  return (
-                    <React.Fragment key={hourVal}>
-                      {/* Exact Hour Solid Line */}
-                      <div 
-                        className="absolute left-0 right-0 border-t border-[#4f81bd]/25"
-                        style={{ top: `${i * HOUR_HEIGHT}px` }}
-                      />
-                      
-                      {/* Hour Number Text (Left column gutter) */}
-                      <div 
-                        className="absolute left-0 w-[45px] text-right pr-2 font-black text-slate-900 select-none text-[13px] leading-none"
-                        style={{ top: `${i * HOUR_HEIGHT + 4}px` }}
-                      >
-                        {hourVal}
-                      </div>
-
-                      {/* 30-min Dashed Line */}
-                      <div 
-                        className="absolute left-[45px] right-0 border-t border-dashed border-[#4f81bd]/15"
-                        style={{ top: `${i * HOUR_HEIGHT + HOUR_HEIGHT / 2}px` }}
-                      />
-
-                      {/* "30" Minute Text */}
-                      <div 
-                        className="absolute left-0 w-[45px] text-right pr-2 font-extrabold text-[#9ebcd8] select-none text-[10px] leading-none"
-                        style={{ top: `${i * HOUR_HEIGHT + HOUR_HEIGHT / 2 + 3}px` }}
-                      >
-                        30
-                      </div>
-                    </React.Fragment>
-                  );
-                })}
-                {/* Final bottom hour solid line */}
-                <div 
-                  className="absolute left-0 right-0 border-t border-[#4f81bd]/25"
-                  style={{ top: `${totalHours * HOUR_HEIGHT}px` }}
-                />
-              </div>
-
-              {/* STAGE COLUMNS WRAPPER (Interactive Content Layer) */}
-              <div className="flex-1 flex w-full relative z-10 pl-[45px]">
+            {/* STAGE COLUMNS WRAPPER (Interactive Content Layer) */}
+            <div className="flex-1 flex w-full relative z-10 pl-[35px]">
                 
                 {/* COLUMN 1: KB STARSHOP STAGE */}
                 <div className="flex-1 border-r border-[#4f81bd]/20 relative h-full">
@@ -349,6 +348,5 @@ export const FullTimeline: React.FC<FullTimelineProps> = ({
           </div>
         </div>
       </div>
-    </div>
   );
 };
