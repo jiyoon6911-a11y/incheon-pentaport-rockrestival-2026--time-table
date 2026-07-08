@@ -64,16 +64,19 @@ export const FullTimeline: React.FC<FullTimelineProps> = ({
       "LITTLE SIMZ",
       "ASIAN KUNG-FU GENERATION",
       "當代電影大師 (Modern Cinema Master)",
-      "Tempalay (템플레이)",
-      "TheyNeverChange"
+      "Tempalay (템플레이)"
     ];
     
+    if (artistName === "TheyNeverChange") {
+      return { mainName: "데이네버체인지" };
+    }
+
     if (excludeList.includes(artistName)) {
       if (artistName === "當代電影大師 (Modern Cinema Master)") {
         return { mainName: "當代電影大師", subName: "Modern Cinema Master" };
       }
       if (artistName === "Tempalay (템플레이)") {
-        return { mainName: "Tempalay", subName: "템플레이" };
+        return { mainName: "Tempalay" };
       }
       return { mainName: artistName };
     }
@@ -213,7 +216,6 @@ export const FullTimeline: React.FC<FullTimelineProps> = ({
                   {dayArtists
                     .filter((a) => a.stageId === "kb-starshop")
                     .map((artist) => {
-                      const isFav = favorites.some((f) => f.artistId === artist.id);
                       const isNow = isCurrentlyPlaying(artist.startTime, artist.endTime);
                       const pos = getPositionStyles(artist.startTime, artist.endTime);
 
@@ -223,18 +225,6 @@ export const FullTimeline: React.FC<FullTimelineProps> = ({
                           className="absolute left-[4px] right-[4px] rounded-lg p-1.5 md:p-2.5 transition-all flex flex-col justify-center items-center shadow-sm select-none border border-slate-900/10 group bg-[#ffe855] hover:bg-[#ffdd33]"
                           style={pos}
                         >
-                          <div className="absolute top-1.5 right-1.5 opacity-80 hover:opacity-100 z-10">
-                            <button
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                onToggleFavorite(artist.id);
-                              }}
-                              className="p-1 rounded-full text-slate-900 hover:scale-110 active:scale-95 transition-all"
-                            >
-                              <Heart className={`h-3 w-3 ${isFav ? "fill-[#e61a55] text-[#e61a55]" : "text-slate-800"}`} />
-                            </button>
-                          </div>
-
                           <div className="text-center w-full mt-1.5">
                             {(() => {
                               const { mainName, subName } = getArtistDisplayName(artist.name);
@@ -283,7 +273,6 @@ export const FullTimeline: React.FC<FullTimelineProps> = ({
                   {dayArtists
                     .filter((a) => a.stageId === "incheon")
                     .map((artist) => {
-                      const isFav = favorites.some((f) => f.artistId === artist.id);
                       const isNow = isCurrentlyPlaying(artist.startTime, artist.endTime);
                       const pos = getPositionStyles(artist.startTime, artist.endTime);
 
@@ -293,18 +282,6 @@ export const FullTimeline: React.FC<FullTimelineProps> = ({
                           className="absolute left-[4px] right-[4px] rounded-lg p-1.5 md:p-2.5 transition-all flex flex-col justify-center items-center shadow-sm select-none border border-slate-900/10 group bg-[#9ceaff] hover:bg-[#7be2ff]"
                           style={pos}
                         >
-                          <div className="absolute top-1.5 right-1.5 opacity-80 hover:opacity-100 z-10">
-                            <button
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                onToggleFavorite(artist.id);
-                              }}
-                              className="p-1 rounded-full text-slate-900 hover:scale-110 active:scale-95 transition-all"
-                            >
-                              <Heart className={`h-3 w-3 ${isFav ? "fill-[#e61a55] text-[#e61a55]" : "text-slate-800"}`} />
-                            </button>
-                          </div>
-
                           <div className="text-center w-full mt-1.5">
                             {(() => {
                               const { mainName, subName } = getArtistDisplayName(artist.name);
@@ -341,7 +318,6 @@ export const FullTimeline: React.FC<FullTimelineProps> = ({
                   {dayArtists
                     .filter((a) => a.stageId === "incheon-airport")
                     .map((artist) => {
-                      const isFav = favorites.some((f) => f.artistId === artist.id);
                       const isNow = isCurrentlyPlaying(artist.startTime, artist.endTime);
                       const pos = getPositionStyles(artist.startTime, artist.endTime);
 
@@ -351,18 +327,6 @@ export const FullTimeline: React.FC<FullTimelineProps> = ({
                           className="absolute left-[4px] right-[4px] rounded-lg p-1.5 md:p-2.5 transition-all flex flex-col justify-center items-center shadow-sm select-none border border-slate-900/10 group bg-[#b7ddfc] hover:bg-[#a2d1f7]"
                           style={pos}
                         >
-                          <div className="absolute top-1.5 right-1.5 opacity-80 hover:opacity-100 z-10">
-                            <button
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                onToggleFavorite(artist.id);
-                              }}
-                              className="p-1 rounded-full text-slate-900 hover:scale-110 active:scale-95 transition-all"
-                            >
-                              <Heart className={`h-3 w-3 ${isFav ? "fill-[#e61a55] text-[#e61a55]" : "text-slate-800"}`} />
-                            </button>
-                          </div>
-
                           <div className="text-center w-full mt-1.5">
                             {(() => {
                               const { mainName, subName } = getArtistDisplayName(artist.name);
