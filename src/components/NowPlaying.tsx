@@ -1,7 +1,7 @@
 import React from "react";
 import { Artist, Stage, Favorite } from "../types";
 import { getCurrentlyPlayingArtist, getUpcomingArtist, timeToMinutes } from "../utils/timeHelper";
-import { Heart, Clock, Play, Radio, Volume2 } from "lucide-react";
+import { Clock, Play, Radio, Volume2 } from "lucide-react";
 import { motion } from "motion/react";
 
 interface NowPlayingProps {
@@ -12,6 +12,41 @@ interface NowPlayingProps {
   favorites: Favorite[];
   onToggleFavorite: (artistId: string) => void;
 }
+
+// Helper to format/get the clean display name according to rules:
+// Show ONLY Korean names for Korean teams (remove English/romanization).
+// Keep Hanja, foreign, or originally English teams as is.
+const getArtistDisplayName = (artistName: string) => {
+  // Foreign / original English / Hanja teams to exclude (keep as is)
+  const excludeList = [
+    "LITTLE SIMZ",
+    "ASIAN KUNG-FU GENERATION",
+    "當代電影大師 (Modern Cinema Master)",
+    "Tempalay (템플레이)"
+  ];
+  
+  if (artistName === "TheyNeverChange") {
+    return { mainName: "데이네버체인지" };
+  }
+
+  if (excludeList.includes(artistName)) {
+    if (artistName === "當代電影大師 (Modern Cinema Master)") {
+      return { mainName: "當代電影大師", subName: "Modern Cinema Master" };
+    }
+    if (artistName === "Tempalay (템플레이)") {
+      return { mainName: "Tempalay" };
+    }
+    return { mainName: artistName };
+  }
+
+  if (artistName.includes(" (") && artistName.endsWith(")")) {
+    const startIdx = artistName.indexOf(" (");
+    const koreanPart = artistName.substring(startIdx + 2, artistName.length - 1);
+    return { mainName: koreanPart };
+  }
+
+  return { mainName: artistName };
+};
 
 export const NowPlaying: React.FC<NowPlayingProps> = ({
   artists,
@@ -112,23 +147,22 @@ export const NowPlaying: React.FC<NowPlayingProps> = ({
                   {nowArtist ? (
                     <div className="space-y-2.5">
                       <div className="flex items-start justify-between gap-2">
-                        <div>
-                          <h3 className="text-lg font-black text-slate-900 tracking-tight leading-snug">
-                            {nowArtist.name}
-                          </h3>
-                          <p className="text-xs text-slate-500 mt-0.5">{nowArtist.genre}</p>
-                        </div>
-                        <button
-                          onClick={() => onToggleFavorite(nowArtist.id)}
-                          className="p-1.5 rounded-full hover:bg-slate-100 transition-colors"
-                          title="나의 타임테이블에 추가"
-                        >
-                          <Heart
-                            className={`h-5 w-5 transition-transform active:scale-125 ${
-                              isFavNow ? "fill-[#e61a55] text-[#e61a55]" : "text-slate-400 hover:text-[#e61a55]"
-                            }`}
-                          />
-                        </button>
+                        {(() => {
+                          const { mainName, subName } = getArtistDisplayName(nowArtist.name);
+                          return (
+                            <div>
+                              <h3 className="text-lg font-black text-slate-900 tracking-tight leading-snug flex items-baseline flex-wrap gap-1">
+                                <span>{mainName}</span>
+                                {subName && (
+                                  <span className="text-xs font-bold text-slate-500 font-sans">
+                                    ({subName})
+                                  </span>
+                                )}
+                              </h3>
+                              <p className="text-xs text-slate-500 mt-0.5">{nowArtist.genre}</p>
+                            </div>
+                          );
+                        })()}
                       </div>
 
                       {/* Time and Description */}
@@ -167,25 +201,25 @@ export const NowPlaying: React.FC<NowPlayingProps> = ({
                 {nextArtist ? (
                   <div className="flex items-center justify-between gap-3">
                     <div className="space-y-0.5">
-                      <h4 className="text-sm font-extrabold text-slate-800 line-clamp-1">
-                        {nextArtist.name}
-                      </h4>
+                      {(() => {
+                        const { mainName, subName } = getArtistDisplayName(nextArtist.name);
+                        return (
+                          <h4 className="text-sm font-extrabold text-slate-800 line-clamp-1 flex items-baseline flex-wrap gap-1">
+                            <span>{mainName}</span>
+                            {subName && (
+                              <span className="text-xs font-bold text-slate-500 font-sans">
+                                ({subName})
+                              </span>
+                            )}
+                          </h4>
+                        );
+                      })()}
                       <div className="flex items-center gap-1 text-[11px] text-slate-500 font-mono">
                         <Clock className="h-3 w-3 text-slate-400" />
                         <span><strong>{nextArtist.startTime}</strong> 시작</span>
                         <span className="text-slate-400">({Math.max(1, timeToMinutes(nextArtist.startTime) - timeToMinutes(currentTime))}분 전)</span>
                       </div>
                     </div>
-                    <button
-                      onClick={() => onToggleFavorite(nextArtist.id)}
-                      className="p-1 rounded-full hover:bg-slate-100 transition-colors"
-                    >
-                      <Heart
-                        className={`h-4.5 w-4.5 ${
-                          isFavNext ? "fill-[#e61a55] text-[#e61a55]" : "text-slate-400 hover:text-[#e61a55]"
-                        }`}
-                      />
-                    </button>
                   </div>
                 ) : (
                   <p className="text-xs text-slate-400">이후 대기 중인 공연 일정이 없습니다.</p>
