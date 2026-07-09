@@ -86,6 +86,10 @@ export const FullTimeline: React.FC<FullTimelineProps> = ({
       return { mainName: "데이네버체인지" };
     }
 
+    if (artistName === "극동아시아타이거즈") {
+      return { mainName: "극동아시아\n타이거즈", isWrapped: true };
+    }
+
     if (artistName === "Balming Tiger (Band Set)") {
       return { mainName: "바밍타이거", subName: "Band Set" };
     }
@@ -310,10 +314,14 @@ export const FullTimeline: React.FC<FullTimelineProps> = ({
                           >
                             <div className="text-center w-full my-auto">
                               {(() => {
-                                const { mainName, subName } = getArtistDisplayName(artist.name);
+                                const { mainName, subName, isWrapped } = getArtistDisplayName(artist.name);
                                 return (
                                   <>
-                                    <h4 className="text-[9.5px] sm:text-[11.5px] font-black text-slate-950 tracking-tight leading-tight truncate max-w-[95%] mx-auto">
+                                    <h4 className={`font-black text-slate-950 tracking-tight leading-tight mx-auto ${
+                                      isWrapped 
+                                        ? "text-[7.5px] sm:text-[9.5px] whitespace-pre-line" 
+                                        : "text-[9.5px] sm:text-[11.5px] truncate max-w-[95%]"
+                                    }`}>
                                       {mainName}
                                     </h4>
                                     {subName && (
@@ -366,10 +374,14 @@ export const FullTimeline: React.FC<FullTimelineProps> = ({
                           >
                             <div className="text-center w-full my-auto">
                               {(() => {
-                                const { mainName, subName } = getArtistDisplayName(artist.name);
+                                const { mainName, subName, isWrapped } = getArtistDisplayName(artist.name);
                                 return (
                                   <>
-                                    <h4 className="text-[9.5px] sm:text-[11.5px] font-black text-slate-950 tracking-tight leading-tight truncate max-w-[95%] mx-auto">
+                                    <h4 className={`font-black text-slate-950 tracking-tight leading-tight mx-auto ${
+                                      isWrapped 
+                                        ? "text-[7.5px] sm:text-[9.5px] whitespace-pre-line" 
+                                        : "text-[9.5px] sm:text-[11.5px] truncate max-w-[95%]"
+                                    }`}>
                                       {mainName}
                                     </h4>
                                     {subName && (
@@ -410,10 +422,14 @@ export const FullTimeline: React.FC<FullTimelineProps> = ({
                           >
                             <div className="text-center w-full my-auto">
                               {(() => {
-                                const { mainName, subName } = getArtistDisplayName(artist.name);
+                                const { mainName, subName, isWrapped } = getArtistDisplayName(artist.name);
                                 return (
                                   <>
-                                    <h4 className="text-[9.5px] sm:text-[11.5px] font-black text-slate-950 tracking-tight leading-tight truncate max-w-[95%] mx-auto">
+                                    <h4 className={`font-black text-slate-950 tracking-tight leading-tight mx-auto ${
+                                      isWrapped 
+                                        ? "text-[7.5px] sm:text-[9.5px] whitespace-pre-line" 
+                                        : "text-[9.5px] sm:text-[11.5px] truncate max-w-[95%]"
+                                    }`}>
                                       {mainName}
                                     </h4>
                                     {subName && (
