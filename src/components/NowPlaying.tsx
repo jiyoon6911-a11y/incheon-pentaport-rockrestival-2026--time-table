@@ -1,7 +1,7 @@
 import React from "react";
 import { Artist, Stage, Favorite } from "../types";
 import { getCurrentlyPlayingArtist, getUpcomingArtist, timeToMinutes } from "../utils/timeHelper";
-import { Clock, Play, Radio, Volume2 } from "lucide-react";
+import { Clock, Play, Radio } from "lucide-react";
 import { motion } from "motion/react";
 
 interface NowPlayingProps {
@@ -56,47 +56,47 @@ export const NowPlaying: React.FC<NowPlayingProps> = ({
   favorites,
   onToggleFavorite,
 }) => {
-  const getStageColorClass = (stageId: string) => {
-    switch (stageId) {
-      case "kb-starshop":
-        return "border-[#f5a623]/30 bg-white hover:border-[#f5a623]";
-      case "incheon":
-        return "border-[#39b54a]/30 bg-white hover:border-[#39b54a]";
-      case "incheon-airport":
-        return "border-[#e61a55]/30 bg-white hover:border-[#e61a55]";
-      default:
-        return "border-slate-200 bg-white";
+  const getStageColorClass = (stageId: string, hasActiveArtist: boolean) => {
+    if (hasActiveArtist) {
+      switch (stageId) {
+        case "kb-starshop":
+          return "border-[3px] border-[#ffcc00] bg-white ring-4 ring-[#ffcc00]/20 shadow-lg scale-[1.01] z-10";
+        case "incheon":
+          return "border-[3px] border-[#00b0f0] bg-white ring-4 ring-[#00b0f0]/20 shadow-lg scale-[1.01] z-10";
+        case "incheon-airport":
+          return "border-[3px] border-[#4f81bd] bg-white ring-4 ring-[#4f81bd]/20 shadow-lg scale-[1.01] z-10";
+        default:
+          return "border-slate-900 bg-white shadow-lg z-10";
+      }
+    } else {
+      return "border-slate-200 bg-white/90 backdrop-blur-sm opacity-90 hover:opacity-100";
     }
   };
 
   const getStageBadgeColor = (stageId: string) => {
     switch (stageId) {
       case "kb-starshop":
-        return "bg-[#f5a623] text-slate-950 font-black";
+        return "bg-[#ffcc00] text-slate-950 font-black";
       case "incheon":
-        return "bg-[#39b54a] text-white font-black";
+        return "bg-[#00b0f0] text-slate-950 font-black";
       case "incheon-airport":
-        return "bg-[#e61a55] text-white font-black";
+        return "bg-[#4f81bd] text-white font-black";
       default:
         return "bg-slate-200 text-slate-700 font-black";
     }
   };
 
   return (
-    <div id="now-playing-dashboard" className="space-y-6">
-      <div className="flex items-center justify-between">
+    <div id="now-playing-dashboard" className="space-y-4">
+      <div className="flex items-center justify-between bg-white border border-slate-200/85 p-4 rounded-2xl shadow-sm">
         <div className="space-y-1">
-          <h2 className="text-xl font-black tracking-tight text-slate-900 flex items-center gap-2">
-            <Radio className="h-5 w-5 text-[#e61a55] animate-pulse" />
+          <h2 className="text-sm font-black tracking-tight text-slate-900 flex items-center gap-2">
+            <Radio className="h-4 w-4 text-[#e61a55] animate-pulse" />
             실시간 스테이지 현황
           </h2>
-          <p className="text-xs text-slate-500">
+          <p className="text-[11px] font-medium text-slate-500">
             현재 스테이지별 공연 상황과 다음 공연 팀을 실시간으로 안내합니다.
           </p>
-        </div>
-        <div className="flex items-center gap-1.5 px-3 py-1 bg-white border border-slate-200 shadow-sm rounded-full text-[11px] font-mono text-slate-600">
-          <Clock className="h-3 w-3 text-[#39b54a]" />
-          <span>기준 시간: <strong>{currentTime}</strong></span>
         </div>
       </div>
 
@@ -123,7 +123,7 @@ export const NowPlaying: React.FC<NowPlayingProps> = ({
           return (
             <div
               key={stage.id}
-              className={`relative flex flex-col justify-between rounded-2xl border p-5 shadow-sm transition-all hover:shadow-md ${getStageColorClass(stage.id)}`}
+              className={`relative flex flex-col justify-between rounded-2xl border p-5 shadow-sm transition-all hover:shadow-md ${getStageColorClass(stage.id, !!nowArtist)}`}
             >
               {/* Top Row: Stage Header */}
               <div>
@@ -131,11 +131,6 @@ export const NowPlaying: React.FC<NowPlayingProps> = ({
                   <span className={`text-[10px] tracking-tight px-2.5 py-1 rounded uppercase font-black ${getStageBadgeColor(stage.id)}`}>
                     {stage.name}
                   </span>
-                  {nowArtist && (
-                    <span className="flex items-center gap-1 text-[10px] font-extrabold text-[#e61a55] animate-pulse bg-[#e61a55]/10 px-2.5 py-0.5 rounded border border-[#e61a55]/20">
-                      <Volume2 className="h-3 w-3" /> LIVE
-                    </span>
-                  )}
                 </div>
 
                 {/* Main Content: NOW PLAYING */}
@@ -159,7 +154,6 @@ export const NowPlaying: React.FC<NowPlayingProps> = ({
                                   </span>
                                 )}
                               </h3>
-                              <p className="text-xs text-slate-500 mt-0.5">{nowArtist.genre}</p>
                             </div>
                           );
                         })()}
@@ -167,18 +161,26 @@ export const NowPlaying: React.FC<NowPlayingProps> = ({
 
                       {/* Time and Description */}
                       <div className="flex items-center gap-1.5 text-xs text-slate-700 font-mono bg-slate-50 p-1.5 rounded border border-slate-200/60">
-                        <Play className="h-3.5 w-3.5 text-[#39b54a] fill-[#39b54a]/20" />
+                        <Play className={`h-3.5 w-3.5 ${
+                          stage.id === "kb-starshop"
+                            ? "text-[#ffbc00] fill-[#ffbc00]/10"
+                            : stage.id === "incheon"
+                            ? "text-[#00b0f0] fill-[#00b0f0]/10"
+                            : "text-[#4f81bd] fill-[#4f81bd]/10"
+                        }`} />
                         <span>{nowArtist.startTime} - {nowArtist.endTime}</span>
-                        <span className="text-slate-300">|</span>
-                        <span className="text-slate-500 font-sans">
-                          종료까지 <strong>{Math.max(1, timeToMinutes(nowArtist.endTime) - timeToMinutes(currentTime))}분</strong> 남음
-                        </span>
                       </div>
 
                       {/* Progress Bar */}
                       <div className="w-full bg-slate-100 rounded-full h-1.5 overflow-hidden">
                         <div
-                          className="h-full bg-gradient-to-r from-[#f5a623] via-[#39b54a] to-[#e61a55] transition-all duration-1000"
+                          className={`h-full transition-all duration-1000 ${
+                            stage.id === "kb-starshop"
+                              ? "bg-[#ffcc00]"
+                              : stage.id === "incheon"
+                              ? "bg-[#00b0f0]"
+                              : "bg-[#4f81bd]"
+                          }`}
                           style={{ width: `${progress}%` }}
                         />
                       </div>

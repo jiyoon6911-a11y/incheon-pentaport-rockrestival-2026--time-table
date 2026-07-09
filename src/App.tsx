@@ -156,15 +156,14 @@ export default function App() {
 
         {/* TOP DECORATIVE STAGE COLOR BAR */}
         <div className="h-1 w-full grid grid-cols-3 sticky top-0 z-50 shrink-0">
-          <div className="bg-[#f5a623]" title="KB KOOKMIN CARD STAGE" />
-          <div className="bg-[#39b54a]" title="MONSTER ENERGY STAGE" />
-          <div className="bg-[#e61a55]" title="STANLEY 1913 STAGE" />
+          <div className="bg-[#ffcc00]" title="KB STARSHOP STAGE" />
+          <div className="bg-[#00b0f0]" title="INCHEON STAGE" />
+          <div className="bg-[#4f81bd]" title="AIRPORT STAGE" />
         </div>
 
         {/* INNER SCROLLABLE CONTENT BODY */}
         <div className="flex-1 overflow-y-auto overflow-x-hidden relative flex flex-col pb-6">
-          {/* PLAYFUL BACKGROUND DECORATION TO MATCH THE POSTER */}
-          <div className="absolute top-0 left-0 right-0 h-[300px] bg-gradient-to-b from-[#e8ecf8] to-transparent pointer-events-none -z-10" />
+          {/* Gradient background decoration is handled globally by phone wrapper */}
 
           {/* IN-APP TOAST NOTIFICATION BANNER */}
           <AnimatePresence>
@@ -252,7 +251,7 @@ export default function App() {
 
           {/* NEW HEADER TAB NAVIGATION */}
           <div className="px-4 pt-3 shrink-0">
-            <div className="bg-white/80 backdrop-blur-md rounded-xl border border-slate-200/85 p-1 shadow-sm flex items-center justify-center gap-1">
+            <div className="bg-white/80 backdrop-blur-md rounded-xl border border-slate-200/80 p-1 shadow-sm flex items-center justify-center gap-1">
               <button
                 onClick={() => setActiveTab("live")}
                 className={`flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg transition-all text-xs font-black tracking-tight ${
