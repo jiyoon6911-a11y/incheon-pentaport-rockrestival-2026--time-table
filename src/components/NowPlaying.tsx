@@ -185,7 +185,7 @@ export const NowPlaying: React.FC<NowPlayingProps> = ({
               {/* Bottom Section: UP NEXT */}
               <div className="pt-4 border-t border-slate-100 mt-auto">
                 <span className="text-[10px] uppercase tracking-wider text-slate-400 font-bold block mb-2">
-                  Up Next
+                  Next
                 </span>
 
                 {nextArtist ? (

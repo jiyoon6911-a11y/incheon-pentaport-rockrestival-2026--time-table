@@ -25,6 +25,23 @@ const getTodayDayId = (): string => {
   return "day1"; // Mon-Fri -> DAY 1 (8/1)
 };
 
+const getFormattedToday = (): string => {
+  const date = new Date();
+  const mm = String(date.getMonth() + 1).padStart(2, "0");
+  const dd = String(date.getDate()).padStart(2, "0");
+  const weekdays = ["일", "월", "화", "수", "목", "금", "토"];
+  const dayName = weekdays[date.getDay()];
+  return `${mm}.${dd} (${dayName})`;
+};
+
+const getTodayDayLabel = (): string => {
+  const dayId = getTodayDayId();
+  if (dayId === "day1") return "1일차";
+  if (dayId === "day2") return "2일차";
+  if (dayId === "day3") return "3일차";
+  return "";
+};
+
 export default function App() {
   // Navigation State
   const [activeTab, setActiveTab] = useState<"live" | "timetable">("live");
@@ -243,7 +260,14 @@ export default function App() {
                   </div>
                 </div>
               </div>
-
+              <div className="flex flex-col items-end text-right">
+                <span className="text-[11px] font-black text-slate-800 font-mono leading-none">
+                  {getFormattedToday()}
+                </span>
+                <span className="text-[9px] font-black text-[#e61a55] bg-[#e61a55]/8 border border-[#e61a55]/20 px-1.5 py-0.5 rounded-md mt-1 leading-none">
+                  {getTodayDayLabel()}
+                </span>
+              </div>
             </div>
           </header>
 

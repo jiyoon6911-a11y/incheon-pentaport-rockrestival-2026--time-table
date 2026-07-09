@@ -27,6 +27,11 @@ export const FullTimeline: React.FC<FullTimelineProps> = ({
   // Stage selection filter state (All stages or a specific stage)
   const [selectedStageId, setSelectedStageId] = useState<string>("all");
 
+  // Reset stage filter when changing days
+  useEffect(() => {
+    setSelectedStageId("all");
+  }, [dayId]);
+
   // Height of 1 hour in pixels on the timeline grid - increased to 76px to comfortably fit long English and Korean names!
   const HOUR_HEIGHT = 76;
   const startHour = 11;
