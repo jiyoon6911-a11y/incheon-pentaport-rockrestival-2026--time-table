@@ -124,8 +124,12 @@ export const MyTimeline: React.FC<MyTimelineProps> = ({
         {favoritedArtists.length > 0 ? (
           <div className="space-y-3">
             {favoritedArtists.map((artist) => {
-              // Check if artist is on day 1 or day 2
-              const isDay1 = artist.dayId === "day1";
+              const getDayLabel = (dayId: string) => {
+                if (dayId === "day1") return "DAY 1";
+                if (dayId === "day2") return "DAY 2";
+                if (dayId === "day3") return "DAY 3";
+                return dayId.toUpperCase();
+              };
 
               return (
                 <div
@@ -135,7 +139,7 @@ export const MyTimeline: React.FC<MyTimelineProps> = ({
                   <div className="flex items-start gap-4">
                     {/* Date/Time badge */}
                     <div className="flex flex-col items-center justify-center bg-slate-900 text-white px-3 py-2 rounded-xl font-mono text-center min-w-[70px] shadow-sm">
-                      <span className="text-[9px] font-black tracking-tight text-[#f5a623]">{isDay1 ? "DAY 1" : "DAY 2"}</span>
+                      <span className="text-[9px] font-black tracking-tight text-[#f5a623]">{getDayLabel(artist.dayId)}</span>
                       <span className="text-xs font-bold mt-0.5">{artist.startTime}</span>
                     </div>
 

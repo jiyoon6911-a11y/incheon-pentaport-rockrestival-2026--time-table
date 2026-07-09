@@ -18,10 +18,17 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 
+const getTodayDayId = (): string => {
+  const day = new Date().getDay();
+  if (day === 6) return "day2"; // Saturday -> DAY 2 (8/2)
+  if (day === 0) return "day3"; // Sunday -> DAY 3 (8/3)
+  return "day1"; // Mon-Fri -> DAY 1 (8/1)
+};
+
 export default function App() {
   // Navigation State
   const [activeTab, setActiveTab] = useState<"live" | "timetable">("live");
-  const [activeDayId, setActiveDayId] = useState<string>("day1");
+  const [activeDayId, setActiveDayId] = useState<string>(getTodayDayId);
 
   // Favorites State with LocalStorage
   const [favorites, setFavorites] = useState<Favorite[]>(() => {
@@ -51,6 +58,8 @@ export default function App() {
     minutesLeft: number;
   } | null>(null);
 
+  const [logoError, setLogoError] = useState(false);
+
   // Synchronize favorites with LocalStorage
   useEffect(() => {
     localStorage.setItem("rockfest_favorites", JSON.stringify(favorites));
@@ -71,7 +80,7 @@ export default function App() {
   }, []);
 
   const activeTime = realTime;
-  const activeDayForCalculation = activeDayId;
+  const todayDayId = getTodayDayId();
 
   // Background check for 15-minute alerts
   useEffect(() => {
@@ -80,7 +89,7 @@ export default function App() {
       if (!fav.alertEnabled) return;
 
       const artist = ARTISTS.find((a) => a.id === fav.artistId);
-      if (!artist || artist.dayId !== activeDayForCalculation) return;
+      if (!artist || artist.dayId !== todayDayId) return;
 
       const startMins = timeToMinutes(artist.startTime);
       const currentMins = timeToMinutes(activeTime);
@@ -91,7 +100,7 @@ export default function App() {
         triggerNotification(artist.name, 15);
       }
     });
-  }, [activeTime, activeDayForCalculation, favorites]);
+  }, [activeTime, todayDayId, favorites]);
 
   // Function to trigger system Web Notification + Custom In-app Toast
   const triggerNotification = (artistName: string, minutesLeft: number) => {
@@ -207,45 +216,34 @@ export default function App() {
           <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-sm shrink-0">
             <div className="px-4 py-3 flex items-center justify-between gap-2">
               <div className="flex items-center gap-2">
-                <div className="h-8 w-8 rounded-lg bg-[#e61a55] flex items-center justify-center shadow-md shadow-rose-500/20 text-white font-extrabold text-sm shrink-0">
-                  ★
+                {/* 
+                  [로고 파일(penta.png) 교체 안내]
+                  penta.png 파일을 프로젝트의 'public' 폴더 바로 아래에 업로드해주시면 (경로: /public/penta.png),
+                  아래 img 태그가 활성화되어 빨간색 ★ 박스 대신 업로드하신 로고 이미지가 나옵니다.
+                */}
+                <div className="h-8 flex items-center justify-center shrink-0">
+                  {!logoError ? (
+                    <img
+                      src="/penta.png"
+                      alt="Penta Logo"
+                      className="h-8 w-auto object-contain max-w-[120px]"
+                      onError={() => setLogoError(true)}
+                    />
+                  ) : (
+                    <div className="h-8 w-8 rounded-lg bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-500 font-extrabold text-sm shrink-0">
+                      <span>★</span>
+                    </div>
+                  )}
                 </div>
                 <div>
                   <div className="flex items-center gap-1">
                     <h1 className="text-xs font-black tracking-tighter text-slate-900 uppercase">
-                      PENTAPORT
+                      2026 PENTAPORT
                     </h1>
-                    <span className="text-[8px] bg-slate-100 text-slate-600 border border-slate-200 px-1 py-0.2 rounded font-bold font-mono">
-                      2026
-                    </span>
                   </div>
-                  <p className="text-[9px] font-bold text-indigo-600 leading-none">
-                    Live Companion
-                  </p>
                 </div>
               </div>
 
-              {/* DAY SWITCHER HEAD TABS */}
-              <div className="flex items-center bg-slate-100 p-0.5 rounded-lg border border-slate-200/60 shadow-inner scale-95 origin-right shrink-0">
-                {FESTIVAL_DAYS.map((day) => {
-                  const isSelected = activeDayId === day.id;
-                  return (
-                    <button
-                      key={day.id}
-                      onClick={() => {
-                        setActiveDayId(day.id);
-                      }}
-                      className={`px-2.5 py-1 rounded-md text-[10px] font-black tracking-tight transition-all ${
-                        isSelected
-                          ? "bg-white text-slate-900 border border-slate-200/50 shadow-sm"
-                          : "text-slate-500 hover:text-slate-800"
-                      }`}
-                    >
-                      {day.name}
-                    </button>
-                  );
-                })}
-              </div>
             </div>
           </header>
 
@@ -261,7 +259,7 @@ export default function App() {
                 }`}
               >
                 <Radio className={`h-3.5 w-3.5 ${activeTab === "live" ? "animate-pulse" : ""}`} />
-                <span>실시간 현황</span>
+                <span>실시간 무대 현황</span>
               </button>
 
               <button
@@ -285,7 +283,7 @@ export default function App() {
                 <NowPlaying
                   artists={ARTISTS}
                   stages={STAGES}
-                  dayId={activeDayForCalculation}
+                  dayId={todayDayId}
                   currentTime={activeTime}
                   favorites={favorites}
                   onToggleFavorite={handleToggleFavorite}
@@ -296,7 +294,8 @@ export default function App() {
                 <FullTimeline
                   artists={ARTISTS}
                   stages={STAGES}
-                  dayId={activeDayForCalculation}
+                  dayId={activeDayId}
+                  onChangeDay={setActiveDayId}
                   currentTime={activeTime}
                   favorites={favorites}
                   onToggleFavorite={handleToggleFavorite}

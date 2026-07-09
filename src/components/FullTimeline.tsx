@@ -6,6 +6,7 @@ interface FullTimelineProps {
   artists: Artist[];
   stages: Stage[];
   dayId: string;
+  onChangeDay?: (dayId: string) => void;
   currentTime: string;
   favorites: Favorite[];
   onToggleFavorite: (artistId: string) => void;
@@ -15,6 +16,7 @@ export const FullTimeline: React.FC<FullTimelineProps> = ({
   artists,
   stages,
   dayId,
+  onChangeDay,
   currentTime,
   favorites,
   onToggleFavorite,
@@ -67,11 +69,29 @@ export const FullTimeline: React.FC<FullTimelineProps> = ({
       "LITTLE SIMZ",
       "ASIAN KUNG-FU GENERATION",
       "當代電影大師 (Modern Cinema Master)",
-      "Tempalay (템플레이)"
+      "Tempalay (템플레이)",
+      "Balming Tiger (Band Set)",
+      "김민규 (델리스파이스, 스위트피)",
+      "Omoinotake",
+      "ADOY",
+      "Pulp",
+      "BECK",
+      "Touché Amoré",
+      "LUCY",
+      "Brandy Senki",
+      "Milledenials"
     ];
     
     if (artistName === "TheyNeverChange") {
       return { mainName: "데이네버체인지" };
+    }
+
+    if (artistName === "Balming Tiger (Band Set)") {
+      return { mainName: "바밍타이거", subName: "Band Set" };
+    }
+
+    if (artistName === "김민규 (델리스파이스, 스위트피)") {
+      return { mainName: "김민규", subName: "델리스파이스, 스위트피" };
     }
 
     if (excludeList.includes(artistName)) {
@@ -96,10 +116,32 @@ export const FullTimeline: React.FC<FullTimelineProps> = ({
   return (
     <div className="space-y-4">
       {/* Visual Header / Sub-Banner */}
-      <div className="flex flex-col gap-2 bg-white border border-slate-200/80 p-4 rounded-2xl shadow-sm">
-        <div className="text-[11px] font-black text-[#e61a55] bg-[#e61a55]/10 border border-[#e61a55]/20 px-3 py-1 rounded-lg self-start">
-          {dayId === "day1" ? "DAY 1 (8/1 금요일)" : "DAY 2 (8/2 토요일)"}
-        </div>
+      <div className="flex gap-1.5 p-1.5 bg-white border border-slate-200/80 rounded-2xl shadow-sm">
+        {[
+          { id: "day1", label: "DAY 1", date: "8/1 (금)" },
+          { id: "day2", label: "DAY 2", date: "8/2 (토)" },
+          { id: "day3", label: "DAY 3", date: "8/3 (일)" },
+        ].map((day) => {
+          const isSelected = dayId === day.id;
+          return (
+            <button
+              key={day.id}
+              onClick={() => onChangeDay?.(day.id)}
+              className={`flex-1 py-2 px-1 rounded-xl text-center transition-all flex flex-col items-center justify-center border ${
+                isSelected
+                  ? "bg-[#e61a55] border-[#e61a55] text-white shadow-sm font-black"
+                  : "bg-slate-50/80 border-slate-200/50 text-slate-600 hover:text-slate-900 hover:bg-slate-100"
+              }`}
+            >
+              <span className="text-[11px] font-black tracking-tight">
+                {day.label}
+              </span>
+              <span className={`text-[9px] ${isSelected ? "text-white/80" : "text-slate-400"} font-bold tracking-tighter mt-0.5`}>
+                {day.date}
+              </span>
+            </button>
+          );
+        })}
       </div>
 
       {/* STAGE SELECTOR FILTER BUTTONS */}

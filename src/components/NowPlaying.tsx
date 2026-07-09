@@ -88,18 +88,6 @@ export const NowPlaying: React.FC<NowPlayingProps> = ({
 
   return (
     <div id="now-playing-dashboard" className="space-y-4">
-      <div className="flex items-center justify-between bg-white border border-slate-200/85 p-4 rounded-2xl shadow-sm">
-        <div className="space-y-1">
-          <h2 className="text-sm font-black tracking-tight text-slate-900 flex items-center gap-2">
-            <Radio className="h-4 w-4 text-[#e61a55] animate-pulse" />
-            실시간 스테이지 현황
-          </h2>
-          <p className="text-[11px] font-medium text-slate-500">
-            현재 스테이지별 공연 상황과 다음 공연 팀을 실시간으로 안내합니다.
-          </p>
-        </div>
-      </div>
-
       <div className="grid grid-cols-1 gap-4">
         {stages.map((stage) => {
           const nowArtist = getCurrentlyPlayingArtist(artists, stage.id, dayId, currentTime);
