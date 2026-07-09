@@ -90,6 +90,10 @@ export const FullTimeline: React.FC<FullTimelineProps> = ({
       return { mainName: "극동아시아\n타이거즈", isWrapped: true };
     }
 
+    if (artistName === "Galaxy Express (갤럭시 익스프레스)" || artistName === "갤럭시 익스프레스") {
+      return { mainName: "갤럭시\n익스프레스", isWrapped: true };
+    }
+
     if (artistName === "Balming Tiger (Band Set)") {
       return { mainName: "바밍타이거", subName: "Band Set" };
     }
