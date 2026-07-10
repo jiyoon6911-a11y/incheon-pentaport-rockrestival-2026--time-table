@@ -141,7 +141,7 @@ export const FullTimeline: React.FC<FullTimelineProps> = ({
     }
 
     if (artistName.startsWith("스탠리와 함께하는")) {
-      return { mainName: "스탠리와 함께하는 펜타로빅", subName: "w.김혜선", isWrapped: true };
+      return { mainName: "스탠리와 함께하는 펜타로빅 with 김혜선", isWrapped: true };
     }
 
     if (artistName === "Balming Tiger (Band Set)") {
@@ -473,12 +473,15 @@ export const FullTimeline: React.FC<FullTimelineProps> = ({
                       .map((artist) => {
                         const isNow = isCurrentlyPlaying(artist.startTime, artist.endTime);
                         const pos = getPositionStyles(artist.startTime, artist.endTime);
+                        const isPentarobic = artist.name.includes("펜타로빅");
                         const isRookie = artist.name.includes("펜타루키");
-                        const cardBg = isRookie 
+                        const cardBg = isPentarobic
+                          ? "bg-[#eb439b] text-white hover:bg-[#d8318b]"
+                          : isRookie 
                           ? "bg-[#ffccd8] hover:bg-[#ffb3c6] text-[#c11041]" 
                           : "bg-[#e0e4e8] hover:bg-[#d1d6db] text-slate-950";
                         const borderStyle = isNow 
-                          ? `border-[2px] sm:border-[2.5px] ${isRookie ? "border-[#ff3b6c] bg-[#fff0f4] ring-[#ffccd8]/85" : "border-[#475569] bg-[#f8fafc] ring-slate-400/35"} shadow-md ring-4 scale-[1.01] z-20 font-black` 
+                          ? `border-[2px] sm:border-[2.5px] ${isPentarobic ? "border-[#ffe855] bg-[#eb439b] ring-[#ffe855]/60" : isRookie ? "border-[#ff3b6c] bg-[#fff0f4] ring-[#ffccd8]/85" : "border-[#475569] bg-[#f8fafc] ring-slate-400/35"} shadow-md ring-4 scale-[1.01] z-20 font-black` 
                           : "border border-slate-900/10 z-10 hover:scale-[1.01]";
 
                         return (
@@ -487,33 +490,49 @@ export const FullTimeline: React.FC<FullTimelineProps> = ({
                             className={`absolute left-[4px] right-[4px] rounded-lg p-1 sm:p-1.5 transition-all flex flex-col justify-center items-center shadow-sm select-none group ${cardBg} ${borderStyle}`}
                             style={pos}
                           >
-                            <div className="text-center w-full my-auto">
-                              {(() => {
-                                const { mainName, subName, isWrapped } = getArtistDisplayName(artist.name);
-                                return (
-                                  <>
-                                    <h4 className={`font-black tracking-tight leading-tight mx-auto ${
-                                      isRookie ? "text-[#c11041]" : "text-slate-950"
-                                    } ${
-                                      isWrapped 
-                                        ? "text-[7.5px] sm:text-[9.5px] whitespace-pre-line" 
-                                        : "text-[9.5px] sm:text-[11.5px] truncate max-w-[95%]"
-                                    }`}>
-                                      {mainName}
-                                    </h4>
-                                    {subName && (
-                                      <p className="text-[6.2px] sm:text-[7.8px] font-bold opacity-80 leading-tight mt-0.5 break-words max-w-[95%] mx-auto">
-                                        ({subName})
-                                      </p>
-                                    )}
-                                  </>
-                                );
-                              })()}
-                              <p className={`text-[7px] sm:text-[8px] font-mono font-black leading-none mt-1 ${
-                                isRookie ? "text-[#c11041]/85" : "text-slate-700"
-                              }`}>
-                                {getDurationText(artist.startTime, artist.endTime)}
-                              </p>
+                            <div className="text-center w-full my-auto px-0.5">
+                              {isPentarobic ? (
+                                <div className="flex flex-col items-center justify-center gap-0.5">
+                                  <span className="text-[6.8px] min-[375px]:text-[7.5px] sm:text-[8.5px] font-extrabold text-pink-100 tracking-tight leading-none block">
+                                    스탠리와 함께하는
+                                  </span>
+                                  <span className="text-[8.2px] min-[375px]:text-[9px] sm:text-[10.5px] font-black text-white tracking-tight leading-tight block">
+                                    펜타로빅 with 김혜선
+                                  </span>
+                                  <span className="text-[6.8px] sm:text-[7.8px] font-mono font-extrabold text-pink-50 leading-none mt-0.5 block">
+                                    20:30 -21:00 (30min)
+                                  </span>
+                                </div>
+                              ) : (
+                                <>
+                                  {(() => {
+                                    const { mainName, subName, isWrapped } = getArtistDisplayName(artist.name);
+                                    return (
+                                      <>
+                                        <h4 className={`font-black tracking-tight leading-tight mx-auto ${
+                                          isRookie ? "text-[#c11041]" : "text-slate-950"
+                                        } ${
+                                          isWrapped 
+                                            ? "text-[7.5px] sm:text-[9.5px] whitespace-pre-line" 
+                                            : "text-[9.5px] sm:text-[11.5px] truncate max-w-[95%]"
+                                        }`}>
+                                          {mainName}
+                                        </h4>
+                                        {subName && (
+                                          <p className="text-[6.2px] sm:text-[7.8px] font-bold opacity-80 leading-tight mt-0.5 break-words max-w-[95%] mx-auto">
+                                            ({subName})
+                                          </p>
+                                        )}
+                                      </>
+                                    );
+                                  })()}
+                                  <p className={`text-[7px] sm:text-[8px] font-mono font-black leading-none mt-1 ${
+                                    isRookie ? "text-[#c11041]/85" : "text-slate-700"
+                                  }`}>
+                                    {getDurationText(artist.startTime, artist.endTime)}
+                                  </p>
+                                </>
+                              )}
                             </div>
                           </div>
                         );

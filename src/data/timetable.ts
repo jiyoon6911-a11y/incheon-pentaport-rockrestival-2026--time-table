@@ -258,7 +258,7 @@ export const ARTISTS: Artist[] = [
   },
   {
     id: "s9-d1",
-    name: "스탠리와 함께하는 펜타로빅 (w.김혜선)",
+    name: "스탠리와 함께하는 펜타로빅 with 김혜선",
     genre: "Pentarobic Showcase",
     startTime: "20:30",
     endTime: "21:00",
@@ -497,7 +497,7 @@ export const ARTISTS: Artist[] = [
   },
   {
     id: "s9-d2",
-    name: "스탠리와 함께하는 펜타로빅 (w.김혜선)",
+    name: "스탠리와 함께하는 펜타로빅 with 김혜선",
     genre: "Pentarobic Showcase",
     startTime: "20:30",
     endTime: "21:00",
@@ -736,7 +736,7 @@ export const ARTISTS: Artist[] = [
   },
   {
     id: "s9-d3",
-    name: "스탠리와 함께하는 펜타로빅 (w.김혜선)",
+    name: "스탠리와 함께하는 펜타로빅 with 김혜선",
     genre: "Pentarobic Showcase",
     startTime: "20:30",
     endTime: "21:00",
