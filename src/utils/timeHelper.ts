@@ -58,6 +58,22 @@ export function getUpcomingArtist(
   return stageArtists[0] || null;
 }
 
+// Get the previous artist for a specific stage
+export function getPreviousArtist(
+  artists: Artist[],
+  stageId: string,
+  dayId: string,
+  timeStr: string
+): Artist | null {
+  const currentMins = timeToMinutes(timeStr);
+  const stageArtists = artists.filter(
+    (a) => a.stageId === stageId && a.dayId === dayId && timeToMinutes(a.endTime) <= currentMins
+  );
+  // Sort by end time descending to get the most recent one
+  stageArtists.sort((a, b) => timeToMinutes(b.endTime) - timeToMinutes(a.endTime));
+  return stageArtists[0] || null;
+}
+
 // Calculate minutes remaining or minutes until starting
 export function getMinutesDifference(timeStrA: string, timeStrB: string): number {
   return timeToMinutes(timeStrA) - timeToMinutes(timeStrB);

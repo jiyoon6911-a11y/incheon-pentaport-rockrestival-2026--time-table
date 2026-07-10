@@ -14,7 +14,7 @@ interface Zone {
 const ZONES: Zone[] = [
   {
     id: "kb-starshop",
-    name: "KB국민카드 STARSHOP STAGE (메인 무대)",
+    name: "KB KOOKMIN CARD STAGE (메인 무대)",
     type: "stage",
     x: 25,
     y: 35,
@@ -23,7 +23,7 @@ const ZONES: Zone[] = [
   },
   {
     id: "incheon",
-    name: "INCHEON STAGE (서브 무대)",
+    name: "MONSTER ENERGY STAGE (서브 무대)",
     type: "stage",
     x: 75,
     y: 30,
@@ -32,7 +32,7 @@ const ZONES: Zone[] = [
   },
   {
     id: "incheon-airport",
-    name: "INCHEON AIRPORT STAGE (어쿠스틱 무대)",
+    name: "STANLEY 1913 STAGE (어쿠스틱 무대)",
     type: "stage",
     x: 50,
     y: 80,

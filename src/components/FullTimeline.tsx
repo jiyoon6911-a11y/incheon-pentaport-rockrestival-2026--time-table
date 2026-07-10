@@ -84,7 +84,16 @@ export const FullTimeline: React.FC<FullTimelineProps> = ({
       "Touché Amoré",
       "LUCY",
       "Brandy Senki",
-      "Milledenials"
+      "Milledenials",
+      "The Lemon Twigs",
+      "The Jesus and Mary Chain",
+      "never young beach",
+      "Song Dongye",
+      "Isyana Sarasvati",
+      "Original Love",
+      "Eddie and the Bricks",
+      "CASUALLY CONNECTED",
+      "Flesh Juicer"
     ];
     
     if (artistName === "TheyNeverChange") {
@@ -97,6 +106,42 @@ export const FullTimeline: React.FC<FullTimelineProps> = ({
 
     if (artistName === "Galaxy Express (갤럭시 익스프레스)" || artistName === "갤럭시 익스프레스") {
       return { mainName: "갤럭시\n익스프레스", isWrapped: true };
+    }
+
+    if (artistName === "The Jesus and Mary Chain") {
+      return { mainName: "The Jesus and\nMary Chain", isWrapped: true };
+    }
+
+    if (artistName === "never young beach") {
+      return { mainName: "never young\nbeach", isWrapped: true };
+    }
+
+    if (artistName === "Flesh Juicer") {
+      return { mainName: "Flesh Juicer\n(血肉果汁機)", isWrapped: true };
+    }
+
+    if (artistName === "Eddie and the Bricks") {
+      return { mainName: "Eddie and\nthe Bricks", isWrapped: true };
+    }
+
+    if (artistName === "CASUALLY CONNECTED") {
+      return { mainName: "CASUALLY\nCONNECTED", isWrapped: true };
+    }
+
+    if (artistName === "아시안 스파이스 하우스") {
+      return { mainName: "아시안\n스파이스 하우스", isWrapped: true };
+    }
+
+    if (artistName === "우륵과 풍각쟁이들") {
+      return { mainName: "우륵과\n풍각쟁이들", isWrapped: true };
+    }
+
+    if (artistName === "피치트럭하이재커스") {
+      return { mainName: "피치트럭\n하이재커스", isWrapped: true };
+    }
+
+    if (artistName === "스탠리와 함께하는 펜타루키") {
+      return { mainName: "스탠리와 함께하는\n펜타루키", isWrapped: true };
     }
 
     if (artistName === "Balming Tiger (Band Set)") {
@@ -131,9 +176,9 @@ export const FullTimeline: React.FC<FullTimelineProps> = ({
       {/* Visual Header / Sub-Banner */}
       <div className="flex gap-1.5 p-1.5 bg-white border border-slate-200/80 rounded-2xl shadow-sm">
         {[
-          { id: "day1", label: "DAY 1", date: "8/1 (금)" },
-          { id: "day2", label: "DAY 2", date: "8/2 (토)" },
-          { id: "day3", label: "DAY 3", date: "8/3 (일)" },
+          { id: "day1", label: "DAY 1", date: "7/31 (금)" },
+          { id: "day2", label: "DAY 2", date: "8/1 (토)" },
+          { id: "day3", label: "DAY 3", date: "8/2 (일)" },
         ].map((day) => {
           const isSelected = dayId === day.id;
           return (
@@ -171,9 +216,9 @@ export const FullTimeline: React.FC<FullTimelineProps> = ({
         </button>
         {stages.map((stage) => {
           let activeClass = "bg-slate-900 text-white font-black shadow-sm";
-          if (stage.id === "kb-starshop") activeClass = "bg-[#ffcc00] text-slate-950 font-black shadow-sm";
-          if (stage.id === "incheon") activeClass = "bg-[#00b0f0] text-slate-950 font-black shadow-sm";
-          if (stage.id === "incheon-airport") activeClass = "bg-[#4f81bd] text-white font-black shadow-sm";
+          if (stage.id === "kb-starshop") activeClass = "bg-[#fdb913] text-slate-950 font-black shadow-sm";
+          if (stage.id === "incheon") activeClass = "bg-[#82d111] text-slate-950 font-black shadow-sm";
+          if (stage.id === "incheon-airport") activeClass = "bg-[#1d242b] text-white font-black shadow-sm";
 
           return (
             <button
@@ -185,7 +230,7 @@ export const FullTimeline: React.FC<FullTimelineProps> = ({
                   : "text-slate-600 hover:text-slate-900 hover:bg-slate-200/50"
               }`}
             >
-              {stage.name === "KB STARSHOP STAGE" ? "KB STARSHOP" : stage.name === "INCHEON STAGE" ? "INCHEON" : "AIRPORT"}
+              {stage.name === "KB KOOKMIN CARD STAGE" ? "KB KOOKMIN" : stage.name === "MONSTER ENERGY STAGE" ? "MONSTER ENERGY" : "STANLEY 1913"}
             </button>
           );
         })}
@@ -203,48 +248,48 @@ export const FullTimeline: React.FC<FullTimelineProps> = ({
               TIME
             </div>
 
-            {/* Stage 1: KB STARSHOP */}
+            {/* Stage 1: KB KOOKMIN CARD STAGE */}
             {(selectedStageId === "all" || selectedStageId === "kb-starshop") && (
-              <div className="flex-1 bg-[#ffcc00] text-slate-950 font-black text-center py-1 px-0.5 border-r border-white/40 flex flex-col justify-center items-center h-11">
-                <span className="text-[5.5px] tracking-tighter leading-none font-bold uppercase opacity-80">
-                  KB KOOKMIN
-                </span>
-                <span className="text-[8.5px] tracking-tighter leading-tight uppercase font-black mt-0.5">
-                  STARSHOP
-                </span>
-              </div>
-            )}
-
-            {/* Stage 2: INCHEON */}
-            {(selectedStageId === "all" || selectedStageId === "incheon") && (
-              <div className="flex-1 bg-[#00b0f0] text-white font-black text-center py-1 px-0.5 border-r border-white/40 flex flex-col justify-center items-center h-11">
-                <span className="text-[5.5px] tracking-tighter leading-none font-bold uppercase opacity-80">
-                  PENTAPORT
-                </span>
-                <span className="text-[8.5px] tracking-tighter leading-tight uppercase font-black mt-0.5">
-                  INCHEON
-                </span>
-              </div>
-            )}
-
-            {/* Stage 3: AIRPORT */}
-            {(selectedStageId === "all" || selectedStageId === "incheon-airport") && (
-              <div className="flex-1 bg-[#4f81bd] text-white font-black text-center py-1 px-0.5 flex flex-col justify-center items-center h-11">
-                <span className="text-[5.5px] tracking-tighter leading-none font-bold uppercase opacity-80">
-                  AIRPORT
+              <div className="flex-1 bg-[#fdb913] text-slate-950 font-black text-center py-1 px-0.5 border-r border-white/40 flex flex-col justify-center items-center h-11">
+                <span className="text-[5.5px] tracking-tighter leading-none font-bold uppercase opacity-85">
+                  KB KOOKMIN CARD
                 </span>
                 <span className="text-[8.5px] tracking-tighter leading-tight uppercase font-black mt-0.5">
                   STAGE
                 </span>
               </div>
             )}
+
+            {/* Stage 2: MONSTER ENERGY STAGE */}
+            {(selectedStageId === "all" || selectedStageId === "incheon") && (
+              <div className="flex-1 bg-[#82d111] text-slate-950 font-black text-center py-1 px-0.5 border-r border-white/40 flex flex-col justify-center items-center h-11">
+                <span className="text-[5.5px] tracking-tighter leading-none font-bold uppercase opacity-85">
+                  MONSTER ENERGY
+                </span>
+                <span className="text-[8.5px] tracking-tighter leading-tight uppercase font-black mt-0.5">
+                  STAGE
+                </span>
+              </div>
+            )}
+
+            {/* Stage 3: STANLEY 1913 STAGE */}
+            {(selectedStageId === "all" || selectedStageId === "incheon-airport") && (
+              <div className="flex-1 bg-[#1d242b] text-white font-black text-center py-1 px-0.5 flex flex-col justify-center items-center h-11">
+                <span className="text-[5.5px] tracking-tighter leading-none font-bold uppercase opacity-85 text-white/80">
+                  STANLEY 1913
+                </span>
+                <span className="text-[8.5px] tracking-tighter leading-tight uppercase font-black mt-0.5 text-white">
+                  STAGE
+                </span>
+              </div>
+            )}
           </div>
 
-          {/* ADMISSION BAR (입장 오픈 10:00) */}
+          {/* ADMISSION BAR (입장 오픈 10:30) */}
           <div className="flex items-stretch border-b border-slate-200">
             <div className="w-[35px] flex-shrink-0 bg-slate-50 border-r border-[#4f81bd]/20" />
             <div className="flex-1 bg-[#c11041] text-white py-0.5 text-center font-extrabold text-[8.5px] tracking-wide uppercase">
-              입장 오픈 10:00 (Gate Open)
+              입장 오픈 10:30 (Gate Open)
             </div>
           </div>
 
@@ -363,7 +408,7 @@ export const FullTimeline: React.FC<FullTimelineProps> = ({
                   </div>
                 )}
 
-                {/* COLUMN 2: INCHEON STAGE */}
+                {/* COLUMN 2: MONSTER ENERGY STAGE */}
                 {(selectedStageId === "all" || selectedStageId === "incheon") && (
                   <div className="flex-1 border-r border-[#4f81bd]/20 relative h-full">
                     {dayArtists
@@ -372,13 +417,13 @@ export const FullTimeline: React.FC<FullTimelineProps> = ({
                         const isNow = isCurrentlyPlaying(artist.startTime, artist.endTime);
                         const pos = getPositionStyles(artist.startTime, artist.endTime);
                         const borderStyle = isNow 
-                          ? "border-[2px] sm:border-[2.5px] border-slate-950 shadow-md ring-4 ring-[#9ceaff]/40 scale-[1.01] z-20 font-black" 
+                          ? "border-[2px] sm:border-[2.5px] border-slate-950 shadow-md ring-4 ring-[#82d111]/40 scale-[1.01] z-20 font-black" 
                           : "border border-slate-900/10 z-10 hover:scale-[1.01]";
 
                         return (
                           <div
                             key={artist.id}
-                            className={`absolute left-[4px] right-[4px] rounded-lg p-1 sm:p-1.5 transition-all flex flex-col justify-center items-center shadow-sm select-none group bg-[#9ceaff] hover:bg-[#7be2ff] ${borderStyle}`}
+                            className={`absolute left-[4px] right-[4px] rounded-lg p-1 sm:p-1.5 transition-all flex flex-col justify-center items-center shadow-sm select-none group bg-[#b8f154] hover:bg-[#a1e533] ${borderStyle}`}
                             style={pos}
                           >
                             <div className="text-center w-full my-auto">
@@ -411,7 +456,7 @@ export const FullTimeline: React.FC<FullTimelineProps> = ({
                   </div>
                 )}
 
-                {/* COLUMN 3: INCHEON AIRPORT STAGE */}
+                {/* COLUMN 3: STANLEY 1913 STAGE */}
                 {(selectedStageId === "all" || selectedStageId === "incheon-airport") && (
                   <div className="flex-1 relative h-full">
                     {dayArtists
@@ -419,14 +464,18 @@ export const FullTimeline: React.FC<FullTimelineProps> = ({
                       .map((artist) => {
                         const isNow = isCurrentlyPlaying(artist.startTime, artist.endTime);
                         const pos = getPositionStyles(artist.startTime, artist.endTime);
+                        const isRookie = artist.name.includes("펜타루키");
+                        const cardBg = isRookie 
+                          ? "bg-[#ffccd8] hover:bg-[#ffb3c6] text-[#c11041]" 
+                          : "bg-[#e0e4e8] hover:bg-[#d1d6db] text-slate-950";
                         const borderStyle = isNow 
-                          ? "border-[2px] sm:border-[2.5px] border-slate-950 shadow-md ring-4 ring-[#b7ddfc]/40 scale-[1.01] z-20 font-black" 
+                          ? `border-[2px] sm:border-[2.5px] border-slate-950 shadow-md ring-4 ${isRookie ? "ring-[#ff809b]/40" : "ring-slate-400/40"} scale-[1.01] z-20 font-black` 
                           : "border border-slate-900/10 z-10 hover:scale-[1.01]";
 
                         return (
                           <div
                             key={artist.id}
-                            className={`absolute left-[4px] right-[4px] rounded-lg p-1 sm:p-1.5 transition-all flex flex-col justify-center items-center shadow-sm select-none group bg-[#b7ddfc] hover:bg-[#a2d1f7] ${borderStyle}`}
+                            className={`absolute left-[4px] right-[4px] rounded-lg p-1 sm:p-1.5 transition-all flex flex-col justify-center items-center shadow-sm select-none group ${cardBg} ${borderStyle}`}
                             style={pos}
                           >
                             <div className="text-center w-full my-auto">
@@ -434,7 +483,9 @@ export const FullTimeline: React.FC<FullTimelineProps> = ({
                                 const { mainName, subName, isWrapped } = getArtistDisplayName(artist.name);
                                 return (
                                   <>
-                                    <h4 className={`font-black text-slate-950 tracking-tight leading-tight mx-auto ${
+                                    <h4 className={`font-black tracking-tight leading-tight mx-auto ${
+                                      isRookie ? "text-[#c11041]" : "text-slate-950"
+                                    } ${
                                       isWrapped 
                                         ? "text-[7.5px] sm:text-[9.5px] whitespace-pre-line" 
                                         : "text-[9.5px] sm:text-[11.5px] truncate max-w-[95%]"
@@ -442,14 +493,16 @@ export const FullTimeline: React.FC<FullTimelineProps> = ({
                                       {mainName}
                                     </h4>
                                     {subName && (
-                                      <p className="text-[6.2px] sm:text-[7.8px] font-bold text-slate-800/80 leading-tight mt-0.5 break-words max-w-[95%] mx-auto">
+                                      <p className="text-[6.2px] sm:text-[7.8px] font-bold opacity-80 leading-tight mt-0.5 break-words max-w-[95%] mx-auto">
                                         ({subName})
                                       </p>
                                     )}
                                   </>
                                 );
                               })()}
-                              <p className="text-[7px] sm:text-[8px] font-mono font-black text-slate-700 leading-none mt-1">
+                              <p className={`text-[7px] sm:text-[8px] font-mono font-black leading-none mt-1 ${
+                                isRookie ? "text-[#c11041]/85" : "text-slate-700"
+                              }`}>
                                 {getDurationText(artist.startTime, artist.endTime)}
                               </p>
                             </div>

@@ -1,6 +1,6 @@
 import React from "react";
 import { Artist, Stage, Favorite } from "../types";
-import { getCurrentlyPlayingArtist, getUpcomingArtist, timeToMinutes } from "../utils/timeHelper";
+import { getCurrentlyPlayingArtist, getUpcomingArtist, getPreviousArtist, timeToMinutes } from "../utils/timeHelper";
 import { Clock, Play, Radio } from "lucide-react";
 import { motion } from "motion/react";
 
@@ -60,11 +60,11 @@ export const NowPlaying: React.FC<NowPlayingProps> = ({
     if (hasActiveArtist) {
       switch (stageId) {
         case "kb-starshop":
-          return "border-[3px] border-[#ffcc00] bg-white ring-4 ring-[#ffcc00]/20 shadow-lg scale-[1.01] z-10";
+          return "border-[3px] border-[#fdb913] bg-white ring-4 ring-[#fdb913]/20 shadow-lg scale-[1.01] z-10";
         case "incheon":
-          return "border-[3px] border-[#00b0f0] bg-white ring-4 ring-[#00b0f0]/20 shadow-lg scale-[1.01] z-10";
+          return "border-[3px] border-[#82d111] bg-white ring-4 ring-[#82d111]/20 shadow-lg scale-[1.01] z-10";
         case "incheon-airport":
-          return "border-[3px] border-[#4f81bd] bg-white ring-4 ring-[#4f81bd]/20 shadow-lg scale-[1.01] z-10";
+          return "border-[3px] border-[#1d242b] bg-white ring-4 ring-[#1d242b]/20 shadow-lg scale-[1.01] z-10";
         default:
           return "border-slate-900 bg-white shadow-lg z-10";
       }
@@ -76,11 +76,11 @@ export const NowPlaying: React.FC<NowPlayingProps> = ({
   const getStageBadgeColor = (stageId: string) => {
     switch (stageId) {
       case "kb-starshop":
-        return "bg-[#ffcc00] text-slate-950 font-black";
+        return "bg-[#fdb913] text-slate-950 font-black";
       case "incheon":
-        return "bg-[#00b0f0] text-slate-950 font-black";
+        return "bg-[#82d111] text-slate-950 font-black";
       case "incheon-airport":
-        return "bg-[#4f81bd] text-white font-black";
+        return "bg-[#1d242b] text-white font-black";
       default:
         return "bg-slate-200 text-slate-700 font-black";
     }
@@ -92,6 +92,7 @@ export const NowPlaying: React.FC<NowPlayingProps> = ({
         {stages.map((stage) => {
           const nowArtist = getCurrentlyPlayingArtist(artists, stage.id, dayId, currentTime);
           const nextArtist = getUpcomingArtist(artists, stage.id, dayId, currentTime);
+          const prevArtist = getPreviousArtist(artists, stage.id, dayId, currentTime);
           const isFavNow = nowArtist ? favorites.some((f) => f.artistId === nowArtist.id) : false;
           const isFavNext = nextArtist ? favorites.some((f) => f.artistId === nextArtist.id) : false;
 
@@ -151,10 +152,10 @@ export const NowPlaying: React.FC<NowPlayingProps> = ({
                       <div className="flex items-center gap-1.5 text-xs text-slate-700 font-mono bg-slate-50 p-1.5 rounded border border-slate-200/60">
                         <Play className={`h-3.5 w-3.5 ${
                           stage.id === "kb-starshop"
-                            ? "text-[#ffbc00] fill-[#ffbc00]/10"
+                            ? "text-[#fdb913] fill-[#fdb913]/10"
                             : stage.id === "incheon"
-                            ? "text-[#00b0f0] fill-[#00b0f0]/10"
-                            : "text-[#4f81bd] fill-[#4f81bd]/10"
+                            ? "text-[#82d111] fill-[#82d111]/10"
+                            : "text-[#1d242b] fill-[#1d242b]/10"
                         }`} />
                         <span>{nowArtist.startTime} - {nowArtist.endTime}</span>
                       </div>
@@ -164,10 +165,10 @@ export const NowPlaying: React.FC<NowPlayingProps> = ({
                         <div
                           className={`h-full transition-all duration-1000 ${
                             stage.id === "kb-starshop"
-                              ? "bg-[#ffcc00]"
+                              ? "bg-[#fdb913]"
                               : stage.id === "incheon"
-                              ? "bg-[#00b0f0]"
-                              : "bg-[#4f81bd]"
+                              ? "bg-[#82d111]"
+                              : "bg-[#1d242b]"
                           }`}
                           style={{ width: `${progress}%` }}
                         />
@@ -182,38 +183,70 @@ export const NowPlaying: React.FC<NowPlayingProps> = ({
                 </div>
               </div>
 
-              {/* Bottom Section: UP NEXT */}
+              {/* Bottom Section: PREV & NEXT Split */}
               <div className="pt-4 border-t border-slate-100 mt-auto">
-                <span className="text-[10px] uppercase tracking-wider text-slate-400 font-bold block mb-2">
-                  Next
-                </span>
-
-                {nextArtist ? (
-                  <div className="flex items-center justify-between gap-3">
-                    <div className="space-y-0.5">
-                      {(() => {
-                        const { mainName, subName } = getArtistDisplayName(nextArtist.name);
-                        return (
-                          <h4 className="text-sm font-extrabold text-slate-800 line-clamp-1 flex items-baseline flex-wrap gap-1">
-                            <span>{mainName}</span>
-                            {subName && (
-                              <span className="text-xs font-bold text-slate-500 font-sans">
-                                ({subName})
-                              </span>
-                            )}
-                          </h4>
-                        );
-                      })()}
-                      <div className="flex items-center gap-1 text-[11px] text-slate-500 font-mono">
-                        <Clock className="h-3 w-3 text-slate-400" />
-                        <span><strong>{nextArtist.startTime}</strong> 시작</span>
-                        <span className="text-slate-400">({Math.max(1, timeToMinutes(nextArtist.startTime) - timeToMinutes(currentTime))}분 전)</span>
+                <div className="grid grid-cols-2 gap-4 divide-x divide-slate-100">
+                  {/* Left Column: PREV */}
+                  <div className="pr-2">
+                    <span className="text-[10px] uppercase tracking-wider text-slate-400 font-bold block mb-1.5 flex items-center gap-1">
+                      <span className="w-1.5 h-1.5 rounded-full bg-slate-300" />
+                      이전 (Prev)
+                    </span>
+                    {prevArtist ? (
+                      <div className="space-y-0.5">
+                        {(() => {
+                          const { mainName, subName } = getArtistDisplayName(prevArtist.name);
+                          return (
+                            <h4 className="text-xs sm:text-sm font-extrabold text-slate-600 line-clamp-1 flex items-baseline flex-wrap gap-0.5" title={prevArtist.name}>
+                              <span>{mainName}</span>
+                              {subName && (
+                                <span className="text-[9px] font-bold text-slate-400 font-sans">
+                                  ({subName})
+                                </span>
+                              )}
+                            </h4>
+                          );
+                        })()}
+                        <div className="text-[10px] text-slate-400 font-mono">
+                          {prevArtist.startTime} - {prevArtist.endTime}
+                        </div>
                       </div>
-                    </div>
+                    ) : (
+                      <p className="text-[11px] text-slate-400">이전 공연 없음</p>
+                    )}
                   </div>
-                ) : (
-                  <p className="text-xs text-slate-400">이후 대기 중인 공연 일정이 없습니다.</p>
-                )}
+
+                  {/* Right Column: NEXT */}
+                  <div className="pl-4">
+                    <span className="text-[10px] uppercase tracking-wider text-slate-400 font-bold block mb-1.5 flex items-center gap-1">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                      이후 (Next)
+                    </span>
+                    {nextArtist ? (
+                      <div className="space-y-0.5">
+                        {(() => {
+                          const { mainName, subName } = getArtistDisplayName(nextArtist.name);
+                          return (
+                            <h4 className="text-xs sm:text-sm font-extrabold text-slate-800 line-clamp-1 flex items-baseline flex-wrap gap-0.5" title={nextArtist.name}>
+                              <span>{mainName}</span>
+                              {subName && (
+                                <span className="text-[9px] font-bold text-slate-500 font-sans">
+                                  ({subName})
+                                </span>
+                              )}
+                            </h4>
+                          );
+                        })()}
+                        <div className="flex items-center gap-0.5 text-[10px] text-slate-500 font-mono flex-wrap">
+                          <strong>{nextArtist.startTime}</strong>
+                          <span className="text-slate-400">({Math.max(1, timeToMinutes(nextArtist.startTime) - timeToMinutes(currentTime))}분 전)</span>
+                        </div>
+                      </div>
+                    ) : (
+                      <p className="text-[11px] text-slate-400">다음 공연 없음</p>
+                    )}
+                  </div>
+                </div>
               </div>
             </div>
           );

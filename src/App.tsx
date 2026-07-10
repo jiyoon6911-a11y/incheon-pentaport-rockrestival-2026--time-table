@@ -20,9 +20,9 @@ import { motion, AnimatePresence } from "motion/react";
 
 const getTodayDayId = (): string => {
   const day = new Date().getDay();
-  if (day === 6) return "day2"; // Saturday -> DAY 2 (8/2)
-  if (day === 0) return "day3"; // Sunday -> DAY 3 (8/3)
-  return "day1"; // Mon-Fri -> DAY 1 (8/1)
+  if (day === 6) return "day2"; // Saturday -> DAY 2 (8/1)
+  if (day === 0) return "day3"; // Sunday -> DAY 3 (8/2)
+  return "day1"; // Mon-Fri -> DAY 1 (7/31)
 };
 
 const getFormattedToday = (): string => {
