@@ -378,8 +378,8 @@ export const FullTimeline: React.FC<FullTimelineProps> = ({
                           >
                             {isCurated && (
                               <div
-                                className={`absolute bottom-full left-0 right-0 mb-[3px] h-[18px] flex items-center justify-center text-center font-black text-[6.5px] min-[375px]:text-[7.5px] sm:text-[9px] uppercase tracking-wider leading-none rounded-md shadow-sm bg-[#1e293b]/20 text-slate-950 border pointer-events-none ${
-                                  isNow ? "border-[#fdb913] bg-slate-200" : "border-slate-900/10"
+                                className={`absolute bottom-full left-0 right-0 mb-[3px] h-[18px] flex items-center justify-center text-center font-black text-[5.5px] min-[320px]:text-[6.0px] min-[375px]:text-[7.0px] sm:text-[8.5px] uppercase tracking-wider leading-none rounded-md shadow-sm bg-[#f97316] text-white border pointer-events-none whitespace-nowrap overflow-hidden text-ellipsis px-1 ${
+                                  isNow ? "border-[#fdb913] bg-[#ea580c]" : "border-orange-600/15"
                                 }`}
                               >
                                 Curated by SPACE SHOWER
@@ -448,8 +448,8 @@ export const FullTimeline: React.FC<FullTimelineProps> = ({
                           >
                             {isCurated && (
                               <div
-                                className={`absolute bottom-full left-0 right-0 mb-[3px] h-[18px] flex items-center justify-center text-center font-black text-[6.5px] min-[375px]:text-[7.5px] sm:text-[9px] uppercase tracking-wider leading-none rounded-md shadow-sm bg-[#82d111] text-slate-950 border pointer-events-none ${
-                                  isNow ? "border-[#82d111]" : "border-slate-900/10"
+                                className={`absolute bottom-full left-0 right-0 mb-[3px] h-[18px] flex items-center justify-center text-center font-black text-[5.5px] min-[320px]:text-[6.0px] min-[375px]:text-[7.0px] sm:text-[8.5px] uppercase tracking-wider leading-none rounded-md shadow-sm bg-[#4ca60c] text-white border pointer-events-none whitespace-nowrap overflow-hidden text-ellipsis px-1 ${
+                                  isNow ? "border-[#82d111] bg-[#3f8a0a]" : "border-lime-700/15"
                                 }`}
                               >
                                 Curated by LaLaLa Fest

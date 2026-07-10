@@ -199,7 +199,7 @@ export const NowPlaying: React.FC<NowPlayingProps> = ({
                   <div className="pr-2">
                     <span className="text-[10px] uppercase tracking-wider text-slate-400 font-bold block mb-1.5 flex items-center gap-1">
                       <span className="w-1.5 h-1.5 rounded-full bg-slate-300" />
-                      이전 (Prev)
+                      이전
                     </span>
                     {prevArtist ? (
                       <div className="space-y-0.5">
@@ -229,7 +229,7 @@ export const NowPlaying: React.FC<NowPlayingProps> = ({
                   <div className="pl-4">
                     <span className="text-[10px] uppercase tracking-wider text-slate-400 font-bold block mb-1.5 flex items-center gap-1">
                       <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                      이후 (Next)
+                      이후
                     </span>
                     {nextArtist ? (
                       <div className="space-y-0.5">
