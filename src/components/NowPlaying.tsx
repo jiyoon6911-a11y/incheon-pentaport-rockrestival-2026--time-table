@@ -39,6 +39,10 @@ const getArtistDisplayName = (artistName: string) => {
     return { mainName: artistName };
   }
 
+  if (artistName.startsWith("스탠리와 함께하는")) {
+    return { mainName: "스탠리와 함께하는 펜타로빅", subName: "w.김혜선" };
+  }
+
   if (artistName.includes(" (") && artistName.endsWith(")")) {
     const startIdx = artistName.indexOf(" (");
     const koreanPart = artistName.substring(startIdx + 2, artistName.length - 1);

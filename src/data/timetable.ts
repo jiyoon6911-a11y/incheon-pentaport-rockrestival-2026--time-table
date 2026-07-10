@@ -258,11 +258,11 @@ export const ARTISTS: Artist[] = [
   },
   {
     id: "s9-d1",
-    name: "스탠리와 함께하는 펜타루키",
-    genre: "Rookie Showcase",
+    name: "스탠리와 함께하는 펜타로빅 (w.김혜선)",
+    genre: "Pentarobic Showcase",
     startTime: "20:30",
     endTime: "21:00",
-    description: "치열한 경쟁을 뚫고 엄선된 최고의 루키 밴드들이 선사하는 파릇파릇하고 에너지 넘치는 스페셜 쇼케이스. (with 김혜선)",
+    description: "스탠리와 함께 에너지 넘치는 댄스와 에어로빅으로 펜타포트의 밤을 한층 더 뜨겁게 불태우는 스페셜 타임!",
     stageId: "incheon-airport",
     dayId: "day1"
   },
@@ -497,11 +497,11 @@ export const ARTISTS: Artist[] = [
   },
   {
     id: "s9-d2",
-    name: "스탠리와 함께하는 펜타루키",
-    genre: "Rookie Showcase",
+    name: "스탠리와 함께하는 펜타로빅 (w.김혜선)",
+    genre: "Pentarobic Showcase",
     startTime: "20:30",
     endTime: "21:00",
-    description: "치열한 경쟁을 뚫고 엄선된 최고의 루키 밴드들이 선사하는 파릇파릇하고 에너지 넘치는 스페셜 쇼케이스. (with 김혜선)",
+    description: "스탠리와 함께 에너지 넘치는 댄스와 에어로빅으로 펜타포트의 밤을 한층 더 뜨겁게 불태우는 스페셜 타임!",
     stageId: "incheon-airport",
     dayId: "day2"
   },
@@ -736,11 +736,11 @@ export const ARTISTS: Artist[] = [
   },
   {
     id: "s9-d3",
-    name: "스탠리와 함께하는 펜타루키",
-    genre: "Rookie Showcase",
+    name: "스탠리와 함께하는 펜타로빅 (w.김혜선)",
+    genre: "Pentarobic Showcase",
     startTime: "20:30",
     endTime: "21:00",
-    description: "치열한 경쟁을 뚫고 엄선된 최고의 루키 밴드들이 선사하는 파릇파릇하고 에너지 넘치는 스페셜 쇼케이스. (with 김혜선)",
+    description: "스탠리와 함께 에너지 넘치는 댄스와 에어로빅으로 펜타포트의 밤을 한층 더 뜨겁게 불태우는 스페셜 타임!",
     stageId: "incheon-airport",
     dayId: "day3"
   }

@@ -140,8 +140,8 @@ export const FullTimeline: React.FC<FullTimelineProps> = ({
       return { mainName: "피치트럭\n하이재커스", isWrapped: true };
     }
 
-    if (artistName === "스탠리와 함께하는 펜타루키") {
-      return { mainName: "스탠리와 함께하는\n펜타루키", isWrapped: true };
+    if (artistName.startsWith("스탠리와 함께하는")) {
+      return { mainName: "스탠리와 함께하는\n펜타로빅", subName: "w.김혜선", isWrapped: true };
     }
 
     if (artistName === "Balming Tiger (Band Set)") {
