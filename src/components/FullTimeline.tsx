@@ -113,11 +113,11 @@ export const FullTimeline: React.FC<FullTimelineProps> = ({
     }
 
     if (artistName === "never young beach") {
-      return { mainName: "never young\nbeach", isWrapped: true };
+      return { mainName: "never young beach", isWrapped: false };
     }
 
     if (artistName === "Flesh Juicer") {
-      return { mainName: "Flesh Juicer\n(血肉果汁機)", isWrapped: true };
+      return { mainName: "Flesh Juicer 血肉果汁機", isWrapped: false };
     }
 
     if (artistName === "Eddie and the Bricks") {
@@ -141,7 +141,7 @@ export const FullTimeline: React.FC<FullTimelineProps> = ({
     }
 
     if (artistName.startsWith("스탠리와 함께하는")) {
-      return { mainName: "스탠리와 함께하는 펜타로빅 with 김혜선", isWrapped: true };
+      return { mainName: "스탠리와 함께하는 펜타로빅 w.김혜선", isWrapped: true };
     }
 
     if (artistName === "Balming Tiger (Band Set)") {
@@ -369,13 +369,19 @@ export const FullTimeline: React.FC<FullTimelineProps> = ({
                           ? "border-[2px] sm:border-[2.5px] border-[#fdb913] bg-[#fffbeb] shadow-md ring-4 ring-[#ffe855]/60 scale-[1.01] z-20 font-black" 
                           : "border border-slate-900/10 z-10 hover:scale-[1.01]";
 
+                        const isCurated = artist.name === "never young beach";
                         return (
                           <div
                             key={artist.id}
-                            className={`absolute left-[4px] right-[4px] rounded-lg p-1 sm:p-1.5 transition-all flex flex-col justify-center items-center shadow-sm select-none group bg-[#ffe855] hover:bg-[#ffdd33] ${borderStyle}`}
+                            className={`absolute left-[4px] right-[4px] rounded-lg transition-all flex flex-col items-center shadow-sm select-none group bg-[#ffe855] hover:bg-[#ffdd33] overflow-hidden ${isCurated ? "pt-0 border-[1.5px] sm:border-[2px] border-amber-600/30" : "p-1 sm:p-1.5 justify-center"} ${borderStyle}`}
                             style={pos}
                           >
-                            <div className="text-center w-full my-auto">
+                            {isCurated && (
+                              <div className="w-full bg-[#f59e0b] text-slate-950 font-black py-1 text-[6.5px] min-[375px]:text-[7.5px] sm:text-[9px] uppercase tracking-wider text-center border-b border-amber-600/20 shadow-sm leading-none flex items-center justify-center select-none">
+                                Curated by SPACE SHOWER
+                              </div>
+                            )}
+                            <div className={`text-center w-full my-auto ${isCurated ? "p-1.5 flex flex-col justify-center items-center flex-1" : ""}`}>
                               {(() => {
                                 const { mainName, subName, isWrapped } = getArtistDisplayName(artist.name);
                                 return (
@@ -429,13 +435,19 @@ export const FullTimeline: React.FC<FullTimelineProps> = ({
                           ? "border-[2px] sm:border-[2.5px] border-[#82d111] bg-[#f4fde8] shadow-md ring-4 ring-[#82d111]/60 scale-[1.01] z-20 font-black" 
                           : "border border-slate-900/10 z-10 hover:scale-[1.01]";
 
+                        const isCurated = artist.name === "Isyana Sarasvati";
                         return (
                           <div
                             key={artist.id}
-                            className={`absolute left-[4px] right-[4px] rounded-lg p-1 sm:p-1.5 transition-all flex flex-col justify-center items-center shadow-sm select-none group bg-[#b8f154] hover:bg-[#a1e533] ${borderStyle}`}
+                            className={`absolute left-[4px] right-[4px] rounded-lg transition-all flex flex-col items-center shadow-sm select-none group bg-[#b8f154] hover:bg-[#a1e533] overflow-hidden ${isCurated ? "pt-0 border-[1.5px] sm:border-[2px] border-emerald-600/30" : "p-1 sm:p-1.5 justify-center"} ${borderStyle}`}
                             style={pos}
                           >
-                            <div className="text-center w-full my-auto">
+                            {isCurated && (
+                              <div className="w-full bg-[#78be11] text-slate-950 font-black py-1 text-[6.5px] min-[375px]:text-[7.5px] sm:text-[9px] uppercase tracking-wider text-center border-b border-emerald-600/20 shadow-sm leading-none flex items-center justify-center select-none">
+                                Curated by LaLaLa Fest
+                              </div>
+                            )}
+                            <div className={`text-center w-full my-auto ${isCurated ? "p-1.5 flex flex-col justify-center items-center flex-1" : ""}`}>
                               {(() => {
                                 const { mainName, subName, isWrapped } = getArtistDisplayName(artist.name);
                                 return (
@@ -484,20 +496,26 @@ export const FullTimeline: React.FC<FullTimelineProps> = ({
                           ? `border-[2px] sm:border-[2.5px] ${isPentarobic ? "border-[#ffe855] bg-[#eb439b] ring-[#ffe855]/60" : isRookie ? "border-[#ff3b6c] bg-[#fff0f4] ring-[#ffccd8]/85" : "border-[#475569] bg-[#f8fafc] ring-slate-400/35"} shadow-md ring-4 scale-[1.01] z-20 font-black` 
                           : "border border-slate-900/10 z-10 hover:scale-[1.01]";
 
+                        const isCurated = artist.name === "Flesh Juicer";
                         return (
                           <div
                             key={artist.id}
-                            className={`absolute left-[4px] right-[4px] rounded-lg p-1 sm:p-1.5 transition-all flex flex-col justify-center items-center shadow-sm select-none group ${cardBg} ${borderStyle}`}
+                            className={`absolute left-[4px] right-[4px] rounded-lg transition-all flex flex-col items-center shadow-sm select-none group ${cardBg} ${isCurated ? "pt-0 overflow-hidden border-[1.5px] sm:border-[2px] border-slate-950/20" : "p-1 sm:p-1.5 justify-center"} ${borderStyle}`}
                             style={pos}
                           >
-                            <div className="text-center w-full my-auto px-0.5">
+                            {isCurated && (
+                              <div className="w-full bg-slate-950 text-white font-black py-1 text-[6.5px] min-[375px]:text-[7.5px] sm:text-[9px] uppercase tracking-wider text-center border-b border-white/10 shadow-sm leading-none flex items-center justify-center select-none">
+                                Curated by FireBall
+                              </div>
+                            )}
+                            <div className={`text-center w-full my-auto px-0.5 ${isCurated ? "p-1.5 flex flex-col justify-center items-center flex-1" : ""}`}>
                               {isPentarobic ? (
                                 <div className="flex flex-col items-center justify-center gap-0.5">
                                   <span className="text-[6.8px] min-[375px]:text-[7.5px] sm:text-[8.5px] font-extrabold text-pink-100 tracking-tight leading-none block">
                                     스탠리와 함께하는
                                   </span>
                                   <span className="text-[8.2px] min-[375px]:text-[9px] sm:text-[10.5px] font-black text-white tracking-tight leading-tight block">
-                                    펜타로빅 with 김혜선
+                                    펜타로빅 w.김혜선
                                   </span>
                                   <span className="text-[6.8px] sm:text-[7.8px] font-mono font-extrabold text-pink-50 leading-none mt-0.5 block">
                                     20:30 -21:00 (30min)
