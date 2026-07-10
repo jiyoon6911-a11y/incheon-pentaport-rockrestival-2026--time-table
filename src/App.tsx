@@ -180,13 +180,6 @@ export default function App() {
           </div>
         </div>
 
-        {/* TOP DECORATIVE STAGE COLOR BAR */}
-        <div className="h-1 w-full grid grid-cols-3 sticky top-0 z-50 shrink-0">
-          <div className="bg-[#fdb913]" title="KB KOOKMIN CARD STAGE" />
-          <div className="bg-[#82d111]" title="MONSTER ENERGY STAGE" />
-          <div className="bg-[#1d242b]" title="STANLEY 1913 STAGE" />
-        </div>
-
         {/* INNER SCROLLABLE CONTENT BODY */}
         <div className="flex-1 overflow-y-auto overflow-x-hidden relative flex flex-col pb-6">
           {/* Gradient background decoration is handled globally by phone wrapper */}
@@ -264,11 +257,11 @@ export default function App() {
                 </div>
               </div>
               <div className="flex flex-col items-end text-right">
+                <span className="text-[9.5px] font-extrabold text-[#a824e8] bg-white shadow-sm px-2 py-0.5 rounded-md mb-1.5 leading-none select-none tracking-tight">
+                  {getTodayDayLabel()}
+                </span>
                 <span className="text-[11px] font-black text-white font-mono leading-none tracking-tight">
                   {getFormattedToday()}
-                </span>
-                <span className="text-[9.5px] font-extrabold text-[#a824e8] bg-white shadow-sm px-2 py-0.5 rounded-md mt-1.5 leading-none select-none tracking-tight">
-                  {getTodayDayLabel()}
                 </span>
               </div>
             </div>

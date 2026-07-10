@@ -141,7 +141,7 @@ export const FullTimeline: React.FC<FullTimelineProps> = ({
     }
 
     if (artistName.startsWith("스탠리와 함께하는")) {
-      return { mainName: "스탠리와 함께하는\n펜타로빅", subName: "w.김혜선", isWrapped: true };
+      return { mainName: "스탠리와 함께하는 펜타로빅", subName: "w.김혜선", isWrapped: true };
     }
 
     if (artistName === "Balming Tiger (Band Set)") {
@@ -206,13 +206,13 @@ export const FullTimeline: React.FC<FullTimelineProps> = ({
       <div className="flex gap-1 p-1 bg-slate-100 rounded-2xl border border-slate-200/50 shadow-sm">
         <button
           onClick={() => setSelectedStageId("all")}
-          className={`flex-1 py-2 text-[10px] sm:text-xs font-black rounded-xl transition-all ${
+          className={`flex-1 py-2 text-[10px] min-[375px]:text-[11px] sm:text-xs font-black rounded-xl transition-all ${
             selectedStageId === "all"
               ? "bg-slate-900 text-white font-black shadow-sm"
               : "text-slate-600 hover:text-slate-900 hover:bg-slate-200/50"
           }`}
         >
-          전체 스테이지
+          전체
         </button>
         {stages.map((stage) => {
           let activeClass = "bg-slate-900 text-white font-black shadow-sm";
@@ -220,17 +220,23 @@ export const FullTimeline: React.FC<FullTimelineProps> = ({
           if (stage.id === "incheon") activeClass = "bg-[#82d111] text-slate-950 font-black shadow-sm";
           if (stage.id === "incheon-airport") activeClass = "bg-[#1d242b] text-white font-black shadow-sm";
 
+          const stageShortName = stage.name === "KB KOOKMIN CARD STAGE" 
+            ? "KB국민" 
+            : stage.name === "MONSTER ENERGY STAGE" 
+            ? "몬스터" 
+            : "스탠리";
+
           return (
             <button
               key={stage.id}
               onClick={() => setSelectedStageId(stage.id)}
-              className={`flex-1 py-2 px-1 text-[10px] sm:text-xs font-black rounded-xl transition-all truncate ${
+              className={`flex-1 py-2 px-0.5 text-[10px] min-[375px]:text-[11px] sm:text-xs font-black rounded-xl transition-all ${
                 selectedStageId === stage.id
                   ? activeClass
                   : "text-slate-600 hover:text-slate-900 hover:bg-slate-200/50"
               }`}
             >
-              {stage.name === "KB KOOKMIN CARD STAGE" ? "KB KOOKMIN" : stage.name === "MONSTER ENERGY STAGE" ? "MONSTER ENERGY" : "STANLEY 1913"}
+              {stageShortName}
             </button>
           );
         })}
@@ -262,14 +268,14 @@ export const FullTimeline: React.FC<FullTimelineProps> = ({
 
             {/* Stage 2: MONSTER ENERGY STAGE */}
             {(selectedStageId === "all" || selectedStageId === "incheon") && (
-              <div className="flex-1 bg-[#82d111] text-slate-950 font-black text-center py-1 px-0.5 border-r border-white/40 flex flex-col justify-center items-center min-h-[44px] h-auto">
+              <div className="flex-1 bg-[#82d111] text-slate-950 font-black text-center py-1.5 px-0.5 border-r border-white/40 flex flex-col justify-center items-center min-h-[48px] h-auto">
                 <span className="text-[5.5px] tracking-tighter leading-none font-bold uppercase opacity-85">
                   MONSTER ENERGY
                 </span>
                 <span className="text-[8.5px] tracking-tighter leading-tight uppercase font-black mt-0.5">
                   STAGE
                 </span>
-                <span className="text-[4.8px] sm:text-[6px] tracking-tighter leading-none font-extrabold text-slate-900 mt-0.5">
+                <span className="text-[6px] sm:text-[7.5px] tracking-tighter leading-none font-black text-slate-950 mt-1.5 drop-shadow-[0_0.5px_0.5px_rgba(255,255,255,0.3)]">
                   ★ 10:30~19:30 드리머 부스 운영!
                 </span>
               </div>
@@ -360,7 +366,7 @@ export const FullTimeline: React.FC<FullTimelineProps> = ({
                         const isNow = isCurrentlyPlaying(artist.startTime, artist.endTime);
                         const pos = getPositionStyles(artist.startTime, artist.endTime);
                         const borderStyle = isNow 
-                          ? "border-[2px] sm:border-[2.5px] border-slate-950 shadow-md ring-4 ring-[#ffe855]/40 scale-[1.01] z-20 font-black" 
+                          ? "border-[2px] sm:border-[2.5px] border-[#fdb913] bg-[#fffbeb] shadow-md ring-4 ring-[#ffe855]/60 scale-[1.01] z-20 font-black" 
                           : "border border-slate-900/10 z-10 hover:scale-[1.01]";
 
                         return (
@@ -420,7 +426,7 @@ export const FullTimeline: React.FC<FullTimelineProps> = ({
                         const isNow = isCurrentlyPlaying(artist.startTime, artist.endTime);
                         const pos = getPositionStyles(artist.startTime, artist.endTime);
                         const borderStyle = isNow 
-                          ? "border-[2px] sm:border-[2.5px] border-slate-950 shadow-md ring-4 ring-[#82d111]/40 scale-[1.01] z-20 font-black" 
+                          ? "border-[2px] sm:border-[2.5px] border-[#82d111] bg-[#f4fde8] shadow-md ring-4 ring-[#82d111]/60 scale-[1.01] z-20 font-black" 
                           : "border border-slate-900/10 z-10 hover:scale-[1.01]";
 
                         return (
@@ -472,7 +478,7 @@ export const FullTimeline: React.FC<FullTimelineProps> = ({
                           ? "bg-[#ffccd8] hover:bg-[#ffb3c6] text-[#c11041]" 
                           : "bg-[#e0e4e8] hover:bg-[#d1d6db] text-slate-950";
                         const borderStyle = isNow 
-                          ? `border-[2px] sm:border-[2.5px] border-slate-950 shadow-md ring-4 ${isRookie ? "ring-[#ff809b]/40" : "ring-slate-400/40"} scale-[1.01] z-20 font-black` 
+                          ? `border-[2px] sm:border-[2.5px] ${isRookie ? "border-[#ff3b6c] bg-[#fff0f4] ring-[#ffccd8]/85" : "border-[#475569] bg-[#f8fafc] ring-slate-400/35"} shadow-md ring-4 scale-[1.01] z-20 font-black` 
                           : "border border-slate-900/10 z-10 hover:scale-[1.01]";
 
                         return (

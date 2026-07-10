@@ -125,7 +125,7 @@ export const NowPlaying: React.FC<NowPlayingProps> = ({
                     {stage.name}
                   </span>
                   {stage.id === "incheon" && (
-                    <span className="text-[10px] sm:text-xs font-bold text-[#82d111] bg-[#82d111]/10 px-2 py-0.5 rounded-full border border-[#82d111]/20 animate-pulse">
+                    <span className="text-[10px] sm:text-xs font-bold text-[#82d111] bg-[#82d111]/10 px-2 py-0.5 rounded-full border border-[#82d111]/20">
                       ★ 10:30~19:30 드리머 부스 운영!
                     </span>
                   )}
