@@ -256,7 +256,7 @@ export const FullTimeline: React.FC<FullTimelineProps> = ({
 
             {/* Stage 1: KB KOOKMIN CARD STAGE */}
             {(selectedStageId === "all" || selectedStageId === "kb-starshop") && (
-              <div className="flex-1 bg-[#fdb913] text-slate-950 font-black text-center py-1 px-0.5 border-r border-white/40 flex flex-col justify-center items-center h-11">
+              <div className="flex-1 bg-[#fdb913] text-slate-950 font-black text-center py-1.5 px-0.5 border-r border-white/40 flex flex-col justify-center items-center min-h-[48px] h-auto">
                 <span className="text-[5.5px] tracking-tighter leading-none font-bold uppercase opacity-85">
                   KB KOOKMIN CARD
                 </span>
@@ -283,7 +283,7 @@ export const FullTimeline: React.FC<FullTimelineProps> = ({
 
             {/* Stage 3: STANLEY 1913 STAGE */}
             {(selectedStageId === "all" || selectedStageId === "incheon-airport") && (
-              <div className="flex-1 bg-[#1d242b] text-white font-black text-center py-1 px-0.5 flex flex-col justify-center items-center h-11">
+              <div className="flex-1 bg-[#1d242b] text-white font-black text-center py-1.5 px-0.5 flex flex-col justify-center items-center min-h-[48px] h-auto">
                 <span className="text-[5.5px] tracking-tighter leading-none font-bold uppercase opacity-85 text-white/80">
                   STANLEY 1913
                 </span>
