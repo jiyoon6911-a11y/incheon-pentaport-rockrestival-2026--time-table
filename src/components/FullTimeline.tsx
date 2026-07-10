@@ -370,18 +370,27 @@ export const FullTimeline: React.FC<FullTimelineProps> = ({
                           : "border border-slate-900/10 z-10 hover:scale-[1.01]";
 
                         const isCurated = artist.name === "never young beach";
+                        const curatedCardStyle = isCurated
+                          ? "rounded-t-none rounded-b-lg border-t-0 p-1 sm:p-1.5 justify-center"
+                          : "rounded-lg p-1 sm:p-1.5 justify-center overflow-hidden";
                         return (
                           <div
                             key={artist.id}
-                            className={`absolute left-[4px] right-[4px] rounded-lg transition-all flex flex-col items-center shadow-sm select-none group bg-[#ffe855] hover:bg-[#ffdd33] overflow-hidden ${isCurated ? "pt-0 border-[1.5px] sm:border-[2px] border-amber-600/30" : "p-1 sm:p-1.5 justify-center"} ${borderStyle}`}
+                            className={`absolute left-[4px] right-[4px] transition-all flex flex-col items-center shadow-sm select-none group bg-[#ffe855] hover:bg-[#ffdd33] ${curatedCardStyle} ${borderStyle}`}
                             style={pos}
                           >
                             {isCurated && (
-                              <div className="w-full bg-[#f59e0b] text-slate-950 font-black py-1 text-[6.5px] min-[375px]:text-[7.5px] sm:text-[9px] uppercase tracking-wider text-center border-b border-amber-600/20 shadow-sm leading-none flex items-center justify-center select-none">
+                              <div 
+                                className={`absolute bottom-full left-[-1px] right-[-1px] h-[18px] bg-[#f59e0b] text-slate-950 font-black text-[6.5px] min-[375px]:text-[7.5px] sm:text-[9px] uppercase tracking-wider text-center flex items-center justify-center rounded-t-lg shadow-sm leading-none select-none z-30 ${
+                                  isNow 
+                                    ? "border-t-[2px] border-x-[2px] sm:border-t-[2.5px] sm:border-x-[2.5px] border-[#fdb913] left-[-2px] right-[-2px] sm:left-[-2.5px] sm:right-[-2.5px]" 
+                                    : "border-t border-x border-slate-900/10"
+                                }`}
+                              >
                                 Curated by SPACE SHOWER
                               </div>
                             )}
-                            <div className={`text-center w-full my-auto ${isCurated ? "p-1.5 flex flex-col justify-center items-center flex-1" : ""}`}>
+                            <div className="text-center w-full my-auto">
                               {(() => {
                                 const { mainName, subName, isWrapped } = getArtistDisplayName(artist.name);
                                 return (
@@ -436,18 +445,27 @@ export const FullTimeline: React.FC<FullTimelineProps> = ({
                           : "border border-slate-900/10 z-10 hover:scale-[1.01]";
 
                         const isCurated = artist.name === "Isyana Sarasvati";
+                        const curatedCardStyle = isCurated
+                          ? "rounded-t-none rounded-b-lg border-t-0 p-1 sm:p-1.5 justify-center"
+                          : "rounded-lg p-1 sm:p-1.5 justify-center overflow-hidden";
                         return (
                           <div
                             key={artist.id}
-                            className={`absolute left-[4px] right-[4px] rounded-lg transition-all flex flex-col items-center shadow-sm select-none group bg-[#b8f154] hover:bg-[#a1e533] overflow-hidden ${isCurated ? "pt-0 border-[1.5px] sm:border-[2px] border-emerald-600/30" : "p-1 sm:p-1.5 justify-center"} ${borderStyle}`}
+                            className={`absolute left-[4px] right-[4px] transition-all flex flex-col items-center shadow-sm select-none group bg-[#b8f154] hover:bg-[#a1e533] ${curatedCardStyle} ${borderStyle}`}
                             style={pos}
                           >
                             {isCurated && (
-                              <div className="w-full bg-[#78be11] text-slate-950 font-black py-1 text-[6.5px] min-[375px]:text-[7.5px] sm:text-[9px] uppercase tracking-wider text-center border-b border-emerald-600/20 shadow-sm leading-none flex items-center justify-center select-none">
+                              <div 
+                                className={`absolute bottom-full left-[-1px] right-[-1px] h-[18px] bg-[#78be11] text-slate-950 font-black text-[6.5px] min-[375px]:text-[7.5px] sm:text-[9px] uppercase tracking-wider text-center flex items-center justify-center rounded-t-lg shadow-sm leading-none select-none z-30 ${
+                                  isNow 
+                                    ? "border-t-[2px] border-x-[2px] sm:border-t-[2.5px] sm:border-x-[2.5px] border-[#82d111] left-[-2px] right-[-2px] sm:left-[-2.5px] sm:right-[-2.5px]" 
+                                    : "border-t border-x border-slate-900/10"
+                                }`}
+                              >
                                 Curated by LaLaLa Fest
                               </div>
                             )}
-                            <div className={`text-center w-full my-auto ${isCurated ? "p-1.5 flex flex-col justify-center items-center flex-1" : ""}`}>
+                            <div className="text-center w-full my-auto">
                               {(() => {
                                 const { mainName, subName, isWrapped } = getArtistDisplayName(artist.name);
                                 return (
@@ -497,18 +515,27 @@ export const FullTimeline: React.FC<FullTimelineProps> = ({
                           : "border border-slate-900/10 z-10 hover:scale-[1.01]";
 
                         const isCurated = artist.name === "Flesh Juicer";
+                        const curatedCardStyle = isCurated
+                          ? "rounded-t-none rounded-b-lg border-t-0 p-1 sm:p-1.5 justify-center"
+                          : "rounded-lg p-1 sm:p-1.5 justify-center overflow-hidden";
                         return (
                           <div
                             key={artist.id}
-                            className={`absolute left-[4px] right-[4px] rounded-lg transition-all flex flex-col items-center shadow-sm select-none group ${cardBg} ${isCurated ? "pt-0 overflow-hidden border-[1.5px] sm:border-[2px] border-slate-950/20" : "p-1 sm:p-1.5 justify-center"} ${borderStyle}`}
+                            className={`absolute left-[4px] right-[4px] transition-all flex flex-col items-center shadow-sm select-none group ${cardBg} ${curatedCardStyle} ${borderStyle}`}
                             style={pos}
                           >
                             {isCurated && (
-                              <div className="w-full bg-slate-950 text-white font-black py-1 text-[6.5px] min-[375px]:text-[7.5px] sm:text-[9px] uppercase tracking-wider text-center border-b border-white/10 shadow-sm leading-none flex items-center justify-center select-none">
+                              <div 
+                                className={`absolute bottom-full left-[-1px] right-[-1px] h-[18px] bg-slate-950 text-white font-black text-[6.5px] min-[375px]:text-[7.5px] sm:text-[9px] uppercase tracking-wider text-center flex items-center justify-center rounded-t-lg shadow-sm leading-none select-none z-30 ${
+                                  isNow 
+                                    ? "border-t-[2px] border-x-[2px] sm:border-t-[2.5px] sm:border-x-[2.5px] border-[#475569] left-[-2px] right-[-2px] sm:left-[-2.5px] sm:right-[-2.5px]" 
+                                    : "border-t border-x border-slate-900/10"
+                                }`}
+                              >
                                 Curated by FireBall
                               </div>
                             )}
-                            <div className={`text-center w-full my-auto px-0.5 ${isCurated ? "p-1.5 flex flex-col justify-center items-center flex-1" : ""}`}>
+                            <div className="text-center w-full my-auto px-0.5">
                               {isPentarobic ? (
                                 <div className="flex flex-col items-center justify-center gap-0.5">
                                   <span className="text-[6.8px] min-[375px]:text-[7.5px] sm:text-[8.5px] font-extrabold text-pink-100 tracking-tight leading-none block">
