@@ -187,7 +187,7 @@ export const FullTimeline: React.FC<FullTimelineProps> = ({
               onClick={() => onChangeDay?.(day.id)}
               className={`flex-1 py-2 px-1 rounded-xl text-center transition-all flex flex-col items-center justify-center border ${
                 isSelected
-                  ? "bg-[#e61a55] border-[#e61a55] text-white shadow-sm font-black"
+                  ? "bg-gradient-to-r from-[#6e2ef3] to-[#8b5cf6] border-transparent text-white shadow-sm font-black"
                   : "bg-slate-50/80 border-slate-200/50 text-slate-600 hover:text-slate-900 hover:bg-slate-100"
               }`}
             >
@@ -262,12 +262,15 @@ export const FullTimeline: React.FC<FullTimelineProps> = ({
 
             {/* Stage 2: MONSTER ENERGY STAGE */}
             {(selectedStageId === "all" || selectedStageId === "incheon") && (
-              <div className="flex-1 bg-[#82d111] text-slate-950 font-black text-center py-1 px-0.5 border-r border-white/40 flex flex-col justify-center items-center h-11">
+              <div className="flex-1 bg-[#82d111] text-slate-950 font-black text-center py-1 px-0.5 border-r border-white/40 flex flex-col justify-center items-center min-h-[44px] h-auto">
                 <span className="text-[5.5px] tracking-tighter leading-none font-bold uppercase opacity-85">
                   MONSTER ENERGY
                 </span>
                 <span className="text-[8.5px] tracking-tighter leading-tight uppercase font-black mt-0.5">
                   STAGE
+                </span>
+                <span className="text-[4.8px] sm:text-[6px] tracking-tighter leading-none font-extrabold text-slate-900 mt-0.5">
+                  ★ 10:30~19:30 드리머 부스 운영!
                 </span>
               </div>
             )}
@@ -286,19 +289,19 @@ export const FullTimeline: React.FC<FullTimelineProps> = ({
           </div>
 
           {/* ADMISSION BAR (입장 오픈 10:30) */}
-          <div className="flex items-stretch border-b border-slate-200">
-            <div className="w-[35px] flex-shrink-0 bg-slate-50 border-r border-[#4f81bd]/20" />
+          <div className="flex items-stretch border-b border-slate-100">
+            <div className="w-[35px] flex-shrink-0 bg-slate-50 border-r border-[#38bdf8]/10" />
             <div className="flex-1 bg-[#c11041] text-white py-0.5 text-center font-extrabold text-[8.5px] tracking-wide uppercase">
               입장 오픈 10:30 (Gate Open)
             </div>
           </div>
 
-          {/* GRID CONTENT AREA (Ambient Poster Gradient Swirl Style) */}
+          {/* GRID CONTENT AREA (Clean White Layout with light sky blue dashed grid lines) */}
           <div 
             className="flex w-full relative" 
             style={{ 
               height: `${totalHours * HOUR_HEIGHT}px`,
-              background: "linear-gradient(180deg, #d8e8f8 0%, #f6fafd 50%, #d8e8f8 100%)"
+              background: "#ffffff"
             }}
           >
             
@@ -310,13 +313,13 @@ export const FullTimeline: React.FC<FullTimelineProps> = ({
                   <React.Fragment key={hourVal}>
                     {/* Exact Hour Solid Line */}
                     <div 
-                      className="absolute left-0 right-0 border-t border-[#4f81bd]/25"
+                      className="absolute left-0 right-0 border-t border-[#38bdf8]/15"
                       style={{ top: `${i * HOUR_HEIGHT}px` }}
                     />
                     
                     {/* Hour Number Text (Left column gutter) */}
                     <div 
-                      className="absolute left-0 w-[35px] text-right pr-1 font-black text-slate-900 select-none text-[11px] leading-none"
+                      className="absolute left-0 w-[35px] text-right pr-1.5 font-black text-slate-700 select-none text-[10px] leading-none"
                       style={{ top: `${i * HOUR_HEIGHT + 4}px` }}
                     >
                       {hourVal}
@@ -324,13 +327,13 @@ export const FullTimeline: React.FC<FullTimelineProps> = ({
 
                     {/* 30-min Dashed Line */}
                     <div 
-                      className="absolute left-[35px] right-0 border-t border-dashed border-[#4f81bd]/15"
+                      className="absolute left-[35px] right-0 border-t border-dashed border-[#38bdf8]/10"
                       style={{ top: `${i * HOUR_HEIGHT + HOUR_HEIGHT / 2}px` }}
                     />
 
                     {/* "30" Minute Text */}
                     <div 
-                      className="absolute left-0 w-[35px] text-right pr-1 font-extrabold text-[#9ebcd8] select-none text-[8px] leading-none"
+                      className="absolute left-0 w-[35px] text-right pr-1.5 font-extrabold text-[#7dd3fc] select-none text-[8px] leading-none"
                       style={{ top: `${i * HOUR_HEIGHT + HOUR_HEIGHT / 2 + 3}px` }}
                     >
                       30
@@ -340,7 +343,7 @@ export const FullTimeline: React.FC<FullTimelineProps> = ({
               })}
               {/* Final bottom hour solid line */}
               <div 
-                className="absolute left-0 right-0 border-t border-[#4f81bd]/25"
+                className="absolute left-0 right-0 border-t border-[#38bdf8]/15"
                 style={{ top: `${totalHours * HOUR_HEIGHT}px` }}
               />
             </div>
@@ -350,7 +353,7 @@ export const FullTimeline: React.FC<FullTimelineProps> = ({
                 
                 {/* COLUMN 1: KB STARSHOP STAGE */}
                 {(selectedStageId === "all" || selectedStageId === "kb-starshop") && (
-                  <div className="flex-1 border-r border-[#4f81bd]/20 relative h-full">
+                  <div className="flex-1 border-r border-[#38bdf8]/10 relative h-full">
                     {dayArtists
                       .filter((a) => a.stageId === "kb-starshop")
                       .map((artist) => {
@@ -410,7 +413,7 @@ export const FullTimeline: React.FC<FullTimelineProps> = ({
 
                 {/* COLUMN 2: MONSTER ENERGY STAGE */}
                 {(selectedStageId === "all" || selectedStageId === "incheon") && (
-                  <div className="flex-1 border-r border-[#4f81bd]/20 relative h-full">
+                  <div className="flex-1 border-r border-[#38bdf8]/10 relative h-full">
                     {dayArtists
                       .filter((a) => a.stageId === "incheon")
                       .map((artist) => {

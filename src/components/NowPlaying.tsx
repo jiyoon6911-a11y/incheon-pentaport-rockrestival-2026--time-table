@@ -116,10 +116,15 @@ export const NowPlaying: React.FC<NowPlayingProps> = ({
             >
               {/* Top Row: Stage Header */}
               <div>
-                <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
                   <span className={`text-[10px] tracking-tight px-2.5 py-1 rounded uppercase font-black ${getStageBadgeColor(stage.id)}`}>
                     {stage.name}
                   </span>
+                  {stage.id === "incheon" && (
+                    <span className="text-[10px] sm:text-xs font-bold text-[#82d111] bg-[#82d111]/10 px-2 py-0.5 rounded-full border border-[#82d111]/20 animate-pulse">
+                      ★ 10:30~19:30 드리머 부스 운영!
+                    </span>
+                  )}
                 </div>
 
                 {/* Main Content: NOW PLAYING */}
@@ -239,7 +244,7 @@ export const NowPlaying: React.FC<NowPlayingProps> = ({
                         })()}
                         <div className="flex items-center gap-0.5 text-[10px] text-slate-500 font-mono flex-wrap">
                           <strong>{nextArtist.startTime}</strong>
-                          <span className="text-slate-400">({Math.max(1, timeToMinutes(nextArtist.startTime) - timeToMinutes(currentTime))}분 전)</span>
+                          <span className="text-slate-400">({Math.max(1, timeToMinutes(nextArtist.startTime) - timeToMinutes(currentTime))}분 후)</span>
                         </div>
                       </div>
                     ) : (

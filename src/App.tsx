@@ -165,10 +165,10 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 sm:bg-gradient-to-tr sm:from-slate-900 sm:to-indigo-950 flex items-center justify-center p-0 sm:py-6 md:py-8 select-none">
+    <div className="min-h-screen bg-slate-950 sm:bg-gradient-to-tr sm:from-[#5c27bf] sm:via-[#3b82f6] sm:to-[#ec4899] flex items-center justify-center p-0 sm:py-6 md:py-8 select-none">
       
       {/* PHONE WRAPPER FRAME */}
-      <div className="w-full max-w-[450px] h-screen sm:h-[840px] bg-[#f3f5fa] sm:rounded-[36px] sm:shadow-[0_25px_60px_-15px_rgba(0,0,0,0.8)] sm:border-[8px] sm:border-slate-900 relative flex flex-col overflow-hidden text-slate-800 font-sans selection:bg-[#e61a55] selection:text-white">
+      <div className="w-full max-w-[450px] h-screen sm:h-[840px] bg-[#f3f5fa] sm:rounded-[36px] sm:shadow-[0_25px_60px_-15px_rgba(0,0,0,0.8)] sm:border-[8px] sm:border-slate-900 relative flex flex-col overflow-hidden text-slate-800 font-sans selection:bg-[#ec4899] selection:text-white">
         
         {/* PHONE STATUS BAR */}
         <div className="hidden sm:flex justify-between items-center px-6 pt-2 pb-1 bg-white text-[10px] font-black text-slate-500 select-none z-50 shrink-0">
@@ -182,9 +182,9 @@ export default function App() {
 
         {/* TOP DECORATIVE STAGE COLOR BAR */}
         <div className="h-1 w-full grid grid-cols-3 sticky top-0 z-50 shrink-0">
-          <div className="bg-[#ffcc00]" title="KB STARSHOP STAGE" />
-          <div className="bg-[#00b0f0]" title="INCHEON STAGE" />
-          <div className="bg-[#4f81bd]" title="AIRPORT STAGE" />
+          <div className="bg-[#fdb913]" title="KB KOOKMIN CARD STAGE" />
+          <div className="bg-[#82d111]" title="MONSTER ENERGY STAGE" />
+          <div className="bg-[#1d242b]" title="STANLEY 1913 STAGE" />
         </div>
 
         {/* INNER SCROLLABLE CONTENT BODY */}
@@ -229,9 +229,9 @@ export default function App() {
             )}
           </AnimatePresence>
 
-          {/* HEADER BAR */}
-          <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-sm shrink-0">
-            <div className="px-4 py-3 flex items-center justify-between gap-2">
+          {/* HEADER BAR (Vibrant Festival Poster Gradient Style) */}
+          <header className="sticky top-0 z-40 bg-gradient-to-r from-[#6e2ef3] via-[#a824e8] to-[#f41e9c] border-b border-white/10 shadow-md shrink-0 text-white">
+            <div className="px-4 py-3.5 flex items-center justify-between gap-2">
               <div className="flex items-center gap-2">
                 {/* 
                   [로고 파일(penta.png) 교체 안내]
@@ -243,28 +243,31 @@ export default function App() {
                     <img
                       src="/penta.png"
                       alt="Penta Logo"
-                      className="h-8 w-auto object-contain max-w-[120px]"
+                      className="h-8 w-auto object-contain max-w-[120px] filter drop-shadow-sm brightness-110"
                       onError={() => setLogoError(true)}
                     />
                   ) : (
-                    <div className="h-8 w-8 rounded-lg bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-500 font-extrabold text-sm shrink-0">
+                    <div className="h-8 w-8 rounded-lg bg-white/20 border border-white/30 flex items-center justify-center text-white font-extrabold text-sm shrink-0 shadow-sm">
                       <span>★</span>
                     </div>
                   )}
                 </div>
                 <div>
-                  <div className="flex items-center gap-1">
-                    <h1 className="text-xs font-black tracking-tighter text-slate-900 uppercase">
+                  <div className="flex flex-col">
+                    <h1 className="text-xs font-black tracking-tighter text-white uppercase drop-shadow-[0_1px_2px_rgba(0,0,0,0.15)] leading-tight">
                       2026 PENTAPORT
                     </h1>
+                    <span className="text-[7.5px] font-black text-pink-100 tracking-tighter uppercase leading-none opacity-90">
+                      With KB Kookmin Card
+                    </span>
                   </div>
                 </div>
               </div>
               <div className="flex flex-col items-end text-right">
-                <span className="text-[11px] font-black text-slate-800 font-mono leading-none">
+                <span className="text-[11px] font-black text-white font-mono leading-none tracking-tight">
                   {getFormattedToday()}
                 </span>
-                <span className="text-[9px] font-black text-[#e61a55] bg-[#e61a55]/8 border border-[#e61a55]/20 px-1.5 py-0.5 rounded-md mt-1 leading-none">
+                <span className="text-[9.5px] font-extrabold text-[#a824e8] bg-white shadow-sm px-2 py-0.5 rounded-md mt-1.5 leading-none select-none tracking-tight">
                   {getTodayDayLabel()}
                 </span>
               </div>
@@ -278,7 +281,7 @@ export default function App() {
                 onClick={() => setActiveTab("live")}
                 className={`flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg transition-all text-xs font-black tracking-tight ${
                   activeTab === "live"
-                    ? "bg-[#e61a55] text-white shadow-sm"
+                    ? "bg-gradient-to-r from-[#e82482] to-[#f41e9c] text-white shadow-sm"
                     : "text-slate-600 hover:text-slate-900 hover:bg-slate-50"
                 }`}
               >
@@ -290,7 +293,7 @@ export default function App() {
                 onClick={() => setActiveTab("timetable")}
                 className={`flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg transition-all text-xs font-black tracking-tight ${
                   activeTab === "timetable"
-                    ? "bg-[#39b54a] text-white shadow-sm"
+                    ? "bg-gradient-to-r from-[#6e2ef3] to-[#8b5cf6] text-white shadow-sm"
                     : "text-slate-600 hover:text-slate-900 hover:bg-slate-50"
                 }`}
               >
