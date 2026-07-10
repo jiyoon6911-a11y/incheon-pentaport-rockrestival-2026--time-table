@@ -1,5 +1,5 @@
 {
-  "name": "Rock Festival Guide",
+  "name": "26펜타 실시간 타임테이블",
   "description": "실시간 스테이지 현황, 전체 타임테이블, 찜한 공연 시작 전 알림 및 공연장 지도를 가볍게 제공하는 미니멀 락 페스티벌 안내 서비스",
   "requestFramePermissions": ["notifications"],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
