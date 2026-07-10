@@ -501,7 +501,7 @@ export const FullTimeline: React.FC<FullTimelineProps> = ({
                           ? "bg-[#ffccd8] hover:bg-[#ffb3c6] text-[#c11041]" 
                           : "bg-[#e0e4e8] hover:bg-[#d1d6db] text-slate-950";
                         const borderStyle = isNow 
-                          ? `border-[2px] sm:border-[2.5px] ${isPentarobic ? "border-[#ffccd8] bg-[#eb439b] ring-[#ffccd8]/80" : isRookie ? "border-[#ff3b6c] bg-[#fff0f4] ring-[#ffccd8]/85" : "border-[#475569] bg-[#f8fafc] ring-slate-400/35"} shadow-md ring-4 scale-[1.01] z-20 font-black` 
+                          ? `border-[2px] sm:border-[2.5px] ${isPentarobic ? "border-[#fbcfe8] bg-[#eb439b] ring-[#fbcfe8]/90" : isRookie ? "border-[#ff3b6c] bg-[#fff0f4] ring-[#ffccd8]/85" : "border-[#475569] bg-[#f8fafc] ring-slate-400/35"} shadow-md ring-4 scale-[1.01] z-20 font-black` 
                           : "border border-slate-900/10 z-10 hover:scale-[1.01]";
 
                         const isCurated = artist.name === "Flesh Juicer";
