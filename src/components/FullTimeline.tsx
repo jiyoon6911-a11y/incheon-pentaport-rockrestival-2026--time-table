@@ -370,26 +370,64 @@ export const FullTimeline: React.FC<FullTimelineProps> = ({
                           : "border border-slate-900/10 z-10 hover:scale-[1.01]";
 
                         const isCurated = artist.name === "never young beach";
-                        const curatedCardStyle = isCurated
-                          ? "rounded-t-none rounded-b-lg border-t-0 p-1 sm:p-1.5 justify-center"
-                          : "rounded-lg p-1 sm:p-1.5 justify-center overflow-hidden";
-                        return (
-                          <div
-                            key={artist.id}
-                            className={`absolute left-[4px] right-[4px] transition-all flex flex-col items-center shadow-sm select-none group bg-[#ffe855] hover:bg-[#ffdd33] ${curatedCardStyle} ${borderStyle}`}
-                            style={pos}
-                          >
-                            {isCurated && (
-                              <div 
-                                className={`absolute bottom-full left-[-1px] right-[-1px] h-[18px] bg-[#f59e0b] text-slate-950 font-black text-[6.5px] min-[375px]:text-[7.5px] sm:text-[9px] uppercase tracking-wider text-center flex items-center justify-center rounded-t-lg shadow-sm leading-none select-none z-30 ${
-                                  isNow 
-                                    ? "border-t-[2px] border-x-[2px] sm:border-t-[2.5px] sm:border-x-[2.5px] border-[#fdb913] left-[-2px] right-[-2px] sm:left-[-2.5px] sm:right-[-2.5px]" 
-                                    : "border-t border-x border-slate-900/10"
-                                }`}
+                        if (isCurated) {
+                          const borderTopStyle = isNow 
+                            ? "border-t-[2px] border-x-[2px] sm:border-t-[2.5px] sm:border-x-[2.5px] border-[#fdb913]" 
+                            : "border-t border-x border-slate-900/10";
+                          const borderBottomStyle = isNow 
+                            ? "border-b-[2px] border-x-[2px] sm:border-b-[2.5px] sm:border-x-[2.5px] border-[#fdb913] bg-[#fffbeb] ring-4 ring-[#ffe855]/60" 
+                            : "border-b border-x border-slate-900/10";
+                          return (
+                            <div
+                              key={artist.id}
+                              className={`absolute left-[4px] right-[4px] flex flex-col z-10 transition-all select-none group ${
+                                isNow ? "z-20 scale-[1.01] font-black" : "hover:scale-[1.01]"
+                              }`}
+                              style={pos}
+                            >
+                              <div
+                                className={`w-full h-[18px] flex items-center justify-center text-center font-black text-[6.5px] min-[375px]:text-[7.5px] sm:text-[9px] uppercase tracking-wider leading-none rounded-t-lg shadow-sm bg-[#1e293b]/20 text-slate-950 ${borderTopStyle}`}
                               >
                                 Curated by SPACE SHOWER
                               </div>
-                            )}
+                              <div
+                                className={`w-full flex-1 flex flex-col justify-center items-center rounded-b-lg p-1 sm:p-1.5 transition-all shadow-sm bg-[#ffe855] group-hover:bg-[#ffdd33] ${borderBottomStyle}`}
+                              >
+                                <div className="text-center w-full my-auto">
+                                  {(() => {
+                                    const { mainName, subName, isWrapped } = getArtistDisplayName(artist.name);
+                                    return (
+                                      <>
+                                        <h4 className={`font-black text-slate-950 tracking-tight leading-tight mx-auto ${
+                                          isWrapped 
+                                            ? "text-[7.5px] sm:text-[9.5px] whitespace-pre-line" 
+                                            : "text-[9.5px] sm:text-[11.5px] truncate max-w-[95%]"
+                                        }`}>
+                                          {mainName}
+                                        </h4>
+                                        {subName && (
+                                          <p className="text-[6.2px] sm:text-[7.8px] font-bold text-slate-800/80 leading-tight mt-0.5 break-words max-w-[95%] mx-auto">
+                                            ({subName})
+                                          </p>
+                                        )}
+                                      </>
+                                    );
+                                  })()}
+                                  <p className="text-[7px] sm:text-[8px] font-mono font-black text-slate-700 leading-none mt-1">
+                                    {getDurationText(artist.startTime, artist.endTime)}
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                          );
+                        }
+
+                        return (
+                          <div
+                            key={artist.id}
+                            className={`absolute left-[4px] right-[4px] transition-all flex flex-col items-center shadow-sm select-none group bg-[#ffe855] hover:bg-[#ffdd33] rounded-lg p-1 sm:p-1.5 justify-center overflow-hidden ${borderStyle}`}
+                            style={pos}
+                          >
                             <div className="text-center w-full my-auto">
                               {(() => {
                                 const { mainName, subName, isWrapped } = getArtistDisplayName(artist.name);
@@ -445,26 +483,64 @@ export const FullTimeline: React.FC<FullTimelineProps> = ({
                           : "border border-slate-900/10 z-10 hover:scale-[1.01]";
 
                         const isCurated = artist.name === "Isyana Sarasvati";
-                        const curatedCardStyle = isCurated
-                          ? "rounded-t-none rounded-b-lg border-t-0 p-1 sm:p-1.5 justify-center"
-                          : "rounded-lg p-1 sm:p-1.5 justify-center overflow-hidden";
-                        return (
-                          <div
-                            key={artist.id}
-                            className={`absolute left-[4px] right-[4px] transition-all flex flex-col items-center shadow-sm select-none group bg-[#b8f154] hover:bg-[#a1e533] ${curatedCardStyle} ${borderStyle}`}
-                            style={pos}
-                          >
-                            {isCurated && (
-                              <div 
-                                className={`absolute bottom-full left-[-1px] right-[-1px] h-[18px] bg-[#78be11] text-slate-950 font-black text-[6.5px] min-[375px]:text-[7.5px] sm:text-[9px] uppercase tracking-wider text-center flex items-center justify-center rounded-t-lg shadow-sm leading-none select-none z-30 ${
-                                  isNow 
-                                    ? "border-t-[2px] border-x-[2px] sm:border-t-[2.5px] sm:border-x-[2.5px] border-[#82d111] left-[-2px] right-[-2px] sm:left-[-2.5px] sm:right-[-2.5px]" 
-                                    : "border-t border-x border-slate-900/10"
-                                }`}
+                        if (isCurated) {
+                          const borderTopStyle = isNow 
+                            ? "border-t-[2px] border-x-[2px] sm:border-t-[2.5px] sm:border-x-[2.5px] border-[#82d111]" 
+                            : "border-t border-x border-slate-900/10";
+                          const borderBottomStyle = isNow 
+                            ? "border-b-[2px] border-x-[2px] sm:border-b-[2.5px] sm:border-x-[2.5px] border-[#82d111] bg-[#f4fde8] ring-4 ring-[#82d111]/60" 
+                            : "border-b border-x border-slate-900/10";
+                          return (
+                            <div
+                              key={artist.id}
+                              className={`absolute left-[4px] right-[4px] flex flex-col z-10 transition-all select-none group ${
+                                isNow ? "z-20 scale-[1.01] font-black" : "hover:scale-[1.01]"
+                              }`}
+                              style={pos}
+                            >
+                              <div
+                                className={`w-full h-[18px] flex items-center justify-center text-center font-black text-[6.5px] min-[375px]:text-[7.5px] sm:text-[9px] uppercase tracking-wider leading-none rounded-t-lg shadow-sm bg-[#82d111] text-slate-950 ${borderTopStyle}`}
                               >
                                 Curated by LaLaLa Fest
                               </div>
-                            )}
+                              <div
+                                className={`w-full flex-1 flex flex-col justify-center items-center rounded-b-lg p-1 sm:p-1.5 transition-all shadow-sm bg-[#b8f154] group-hover:bg-[#a1e533] ${borderBottomStyle}`}
+                              >
+                                <div className="text-center w-full my-auto">
+                                  {(() => {
+                                    const { mainName, subName, isWrapped } = getArtistDisplayName(artist.name);
+                                    return (
+                                      <>
+                                        <h4 className={`font-black text-slate-950 tracking-tight leading-tight mx-auto ${
+                                          isWrapped 
+                                            ? "text-[7.5px] sm:text-[9.5px] whitespace-pre-line" 
+                                            : "text-[9.5px] sm:text-[11.5px] truncate max-w-[95%]"
+                                        }`}>
+                                          {mainName}
+                                        </h4>
+                                        {subName && (
+                                          <p className="text-[6.2px] sm:text-[7.8px] font-bold text-slate-800/80 leading-tight mt-0.5 break-words max-w-[95%] mx-auto">
+                                            ({subName})
+                                          </p>
+                                        )}
+                                      </>
+                                    );
+                                  })()}
+                                  <p className="text-[7px] sm:text-[8px] font-mono font-black text-slate-700 leading-none mt-1">
+                                    {getDurationText(artist.startTime, artist.endTime)}
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                          );
+                        }
+
+                        return (
+                          <div
+                            key={artist.id}
+                            className={`absolute left-[4px] right-[4px] transition-all flex flex-col items-center shadow-sm select-none group bg-[#b8f154] hover:bg-[#a1e533] rounded-lg p-1 sm:p-1.5 justify-center overflow-hidden ${borderStyle}`}
+                            style={pos}
+                          >
                             <div className="text-center w-full my-auto">
                               {(() => {
                                 const { mainName, subName, isWrapped } = getArtistDisplayName(artist.name);
@@ -515,26 +591,60 @@ export const FullTimeline: React.FC<FullTimelineProps> = ({
                           : "border border-slate-900/10 z-10 hover:scale-[1.01]";
 
                         const isCurated = artist.name === "Flesh Juicer";
-                        const curatedCardStyle = isCurated
-                          ? "rounded-t-none rounded-b-lg border-t-0 p-1 sm:p-1.5 justify-center"
-                          : "rounded-lg p-1 sm:p-1.5 justify-center overflow-hidden";
-                        return (
-                          <div
-                            key={artist.id}
-                            className={`absolute left-[4px] right-[4px] transition-all flex flex-col items-center shadow-sm select-none group ${cardBg} ${curatedCardStyle} ${borderStyle}`}
-                            style={pos}
-                          >
-                            {isCurated && (
-                              <div 
-                                className={`absolute bottom-full left-[-1px] right-[-1px] h-[18px] bg-slate-950 text-white font-black text-[6.5px] min-[375px]:text-[7.5px] sm:text-[9px] uppercase tracking-wider text-center flex items-center justify-center rounded-t-lg shadow-sm leading-none select-none z-30 ${
-                                  isNow 
-                                    ? "border-t-[2px] border-x-[2px] sm:border-t-[2.5px] sm:border-x-[2.5px] border-[#475569] left-[-2px] right-[-2px] sm:left-[-2.5px] sm:right-[-2.5px]" 
-                                    : "border-t border-x border-slate-900/10"
-                                }`}
+                        if (isCurated) {
+                          const borderTopStyle = isNow 
+                            ? "border-t-[2px] border-x-[2px] sm:border-t-[2.5px] sm:border-x-[2.5px] border-[#475569]" 
+                            : "border-t border-x border-slate-900/10";
+                          const borderBottomStyle = isNow 
+                            ? "border-b-[2px] border-x-[2px] sm:border-b-[2.5px] sm:border-x-[2.5px] border-[#475569] bg-[#f8fafc] ring-4 ring-slate-400/35" 
+                            : "border-b border-x border-slate-900/10";
+                          return (
+                            <div
+                              key={artist.id}
+                              className={`absolute left-[4px] right-[4px] flex flex-col z-10 transition-all select-none group ${
+                                isNow ? "z-20 scale-[1.01] font-black" : "hover:scale-[1.01]"
+                              }`}
+                              style={pos}
+                            >
+                              <div
+                                className={`w-full h-[18px] flex items-center justify-center text-center font-black text-[6.5px] min-[375px]:text-[7.5px] sm:text-[9px] uppercase tracking-wider leading-none rounded-t-lg shadow-sm bg-slate-950 text-white ${borderTopStyle}`}
                               >
                                 Curated by FireBall
                               </div>
-                            )}
+                              <div
+                                className={`w-full flex-1 flex flex-col justify-center items-center rounded-b-lg p-1 sm:p-1.5 transition-all shadow-sm bg-[#e0e4e8] group-hover:bg-[#d1d6db] ${borderBottomStyle}`}
+                              >
+                                <div className="text-center w-full my-auto px-0.5">
+                                  {(() => {
+                                    const { mainName, subName, isWrapped } = getArtistDisplayName(artist.name);
+                                    return (
+                                      <>
+                                        <h4 className="font-black tracking-tight leading-tight mx-auto text-slate-950 text-[9.5px] sm:text-[11.5px] truncate max-w-[95%]">
+                                          {mainName}
+                                        </h4>
+                                        {subName && (
+                                          <p className="text-[6.2px] sm:text-[7.8px] font-bold opacity-80 leading-tight mt-0.5 break-words max-w-[95%] mx-auto text-slate-950">
+                                            ({subName})
+                                          </p>
+                                        )}
+                                      </>
+                                    );
+                                  })()}
+                                  <p className="text-[7px] sm:text-[8px] font-mono font-black leading-none mt-1 text-slate-700">
+                                    {getDurationText(artist.startTime, artist.endTime)}
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                          );
+                        }
+
+                        return (
+                          <div
+                            key={artist.id}
+                            className={`absolute left-[4px] right-[4px] transition-all flex flex-col items-center shadow-sm select-none group ${cardBg} rounded-lg p-1 sm:p-1.5 justify-center overflow-hidden ${borderStyle}`}
+                            style={pos}
+                          >
                             <div className="text-center w-full my-auto px-0.5">
                               {isPentarobic ? (
                                 <div className="flex flex-col items-center justify-center gap-0.5">
